@@ -7,7 +7,6 @@
 
 import UIKit
 import RxSwift
-import RxDataSources
 
 class ViewController: UIViewController {
   
@@ -19,24 +18,41 @@ class ViewController: UIViewController {
   
   private lazy var viewModel = SideDishViewModel(repoService: repoService)
   
-  private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel>(
-    configureCell: { (_, tableView, indexPath, element) in
-      let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
-      cell.textLabel?.text = element.title
-      return cell
-    },
-    titleForHeaderInSection: { dataSource, sectionIndex in
-      return dataSource[sectionIndex].model
-    }
-  )
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    tableView.dataSource = self
+    
     viewModel.subject
-      .bind(to: tableView.rx.items(dataSource: self.dataSource))
+      .subscribe { event in
+        DispatchQueue.main.sync {
+          if let indexSet = event.element {
+            self.tableView.reloadSections(indexSet, with: .automatic)
+          }
+        }
+      }
       .disposed(by: disposeBag)
     
     viewModel.load()
+  }
+}
+
+extension ViewController: UITableViewDataSource {
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return 3
+  }
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    viewModel.sections[section].items.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+    cell.textLabel?.text = viewModel.sections[indexPath.section].items[indexPath.row].title
+    return cell
+  }
+  
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return viewModel.sections[section].model
   }
 }
