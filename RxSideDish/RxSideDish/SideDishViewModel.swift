@@ -20,7 +20,7 @@ final class SideDishViewModel {
   init(repoService: RepositoryService) {
     var sections:[SectionModel] = []
     Category.allCases.forEach { category in
-      sections.append(SectionModel(model: "", category: category, items: []))
+      sections.append(SectionModel(header: "", category: category, items: []))
     }
     self.sections = sections
     self.repoService = repoService
@@ -32,7 +32,7 @@ final class SideDishViewModel {
         if let items = event.element?.body {
           let category = Category.main.rawValue
           self.sections[category].items = items
-          self.sections[category].model = "메인"
+          self.sections[category].header = "메인"
           self.subject.onNext(IndexSet(integer: category))
         }
       }.disposed(by: disposeBag)
@@ -42,7 +42,7 @@ final class SideDishViewModel {
         if let items = event.element?.body {
           let category = Category.soup.rawValue
           self.sections[category].items = items
-          self.sections[category].model = "국"
+          self.sections[category].header = "국"
           self.subject.onNext(IndexSet(integer: category))
         }
       }.disposed(by: disposeBag)
@@ -52,7 +52,7 @@ final class SideDishViewModel {
         if let items = event.element?.body {
           let category = Category.side.rawValue
           self.sections[category].items = items
-          self.sections[category].model = "반찬"
+          self.sections[category].header = "반찬"
           self.subject.onNext(IndexSet(integer: category))
         }
       }.disposed(by: disposeBag)

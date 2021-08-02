@@ -14,7 +14,7 @@ enum Category: Int, CaseIterable {
 }
 
 struct SectionModel {
-  var model: String
+  var header: String
   var category: Category
   var items: [SideDish]
 }

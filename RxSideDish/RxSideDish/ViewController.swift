@@ -53,6 +53,6 @@ extension ViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return viewModel.sections[section].model
+    return viewModel.sections[section].header
   }
 }
