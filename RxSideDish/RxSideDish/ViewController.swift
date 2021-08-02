@@ -19,7 +19,7 @@ class ViewController: UIViewController {
   
   private lazy var viewModel = SideDishViewModel(repoService: repoService)
   
-  private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, SideDish>>(
+  private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel>(
     configureCell: { (_, tableView, indexPath, element) in
       let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
       cell.textLabel?.text = element.title
