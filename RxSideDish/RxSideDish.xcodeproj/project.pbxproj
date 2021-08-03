@@ -27,6 +27,7 @@
 		D0B2251F26B7FF9F009D67E9 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2251E26B7FF9F009D67E9 /* SectionModel.swift */; };
 		D0B2252226B848FB009D67E9 /* SideDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2252026B848FB009D67E9 /* SideDishTableViewCell.swift */; };
 		D0B2252526B8EC60009D67E9 /* SideDishTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2252426B8EC60009D67E9 /* SideDishTableViewHeader.swift */; };
+		D0B2252726B90D94009D67E9 /* BadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2252626B90D94009D67E9 /* BadgeLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		D0B2251E26B7FF9F009D67E9 /* SectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
 		D0B2252026B848FB009D67E9 /* SideDishTableViewCell.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SideDishTableViewCell.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D0B2252426B8EC60009D67E9 /* SideDishTableViewHeader.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SideDishTableViewHeader.swift; sourceTree = "<group>"; tabWidth = 2; };
+		D0B2252626B90D94009D67E9 /* BadgeLabel.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = BadgeLabel.swift; sourceTree = "<group>"; tabWidth = 2; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				D0B2251726B56E39009D67E9 /* Response.swift */,
 				D0B2251926B57346009D67E9 /* SideDishViewModel.swift */,
 				D0B2252026B848FB009D67E9 /* SideDishTableViewCell.swift */,
+				D0B2252626B90D94009D67E9 /* BadgeLabel.swift */,
 				D0B2251E26B7FF9F009D67E9 /* SectionModel.swift */,
 			);
 			path = RxSideDish;
@@ -306,6 +309,7 @@
 				D0B2252526B8EC60009D67E9 /* SideDishTableViewHeader.swift in Sources */,
 				D0B2251626B3D31D009D67E9 /* SessionManager.swift in Sources */,
 				D0B2251A26B57346009D67E9 /* SideDishViewModel.swift in Sources */,
+				D0B2252726B90D94009D67E9 /* BadgeLabel.swift in Sources */,
 				D03DDC2526B191890096F756 /* AppDelegate.swift in Sources */,
 				D0B2252226B848FB009D67E9 /* SideDishTableViewCell.swift in Sources */,
 				D03DDC6026B1BC0F0096F756 /* Endpoint.swift in Sources */,

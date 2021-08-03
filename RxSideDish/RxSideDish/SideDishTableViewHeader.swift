@@ -19,13 +19,13 @@ class SideDishTableViewHeader: UIView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = .white.withAlphaComponent(0.5)
+    backgroundColor = .white.withAlphaComponent(0.7)
     addSubview(title)
   }
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
-    backgroundColor = .white.withAlphaComponent(0.5)
+    backgroundColor = .white.withAlphaComponent(0.7)
     addSubview(title)
   }
   

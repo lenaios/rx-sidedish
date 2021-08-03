@@ -14,15 +14,21 @@ class SideDishTableViewCell: UITableViewCell {
   @IBOutlet weak var subtitle: UILabel!
   @IBOutlet weak var normal: UILabel!
   @IBOutlet weak var sale: UILabel!
+  @IBOutlet weak var badgeStackView: UIStackView!
   
   func confiugre(_ data: SideDish) {
     title.text = data.title
     subtitle.text = data.description
     sale.text = data.sPrice
     setup(image: data.image)
+    data.badge.forEach { label in
+      let badge = BadgeLabel()
+      badge.configure(label)
+      badgeStackView.addArrangedSubview(badge)
+    }
   }
   
-  func setup(image: String) {
+  private func setup(image: String) {
     let url = URL(string: image)!
     URLSession.shared.dataTask(with: url) { data, _, error in
       guard let data = data else { return }
@@ -38,5 +44,8 @@ class SideDishTableViewCell: UITableViewCell {
     title.text = nil
     subtitle.text = nil
     sale.text = nil
+    badgeStackView.arrangedSubviews.forEach { view in
+      view.removeFromSuperview()
+    }
   }
 }

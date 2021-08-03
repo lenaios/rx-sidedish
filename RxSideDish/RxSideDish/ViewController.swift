@@ -28,13 +28,20 @@ class ViewController: UIViewController {
       .subscribe { event in
         DispatchQueue.main.sync {
           if let indexSet = event.element {
-            self.tableView.reloadSections(indexSet, with: .automatic)
+            self.tableView.reloadSections(
+              indexSet,
+              with: .automatic)
           }
         }
       }
       .disposed(by: disposeBag)
     
     viewModel.load()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.navigationBar.isHidden = true
   }
 }
 
