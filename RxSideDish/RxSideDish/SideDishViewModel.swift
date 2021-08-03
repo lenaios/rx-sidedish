@@ -7,15 +7,17 @@
 
 import Foundation
 import RxSwift
+import UIKit.UITableView
 
-final class SideDishViewModel {
+final class SideDishViewModel: NSObject {
   
   private let repoService: RepositoryService
   
   private var disposeBag = DisposeBag()
   
+  private var sections: [SectionModel]
+  
   var subject = PublishSubject<IndexSet>()
-  var sections: [SectionModel]
   
   init(repoService: RepositoryService) {
     var sections:[SectionModel] = []
@@ -56,5 +58,35 @@ final class SideDishViewModel {
           self.subject.onNext(IndexSet(integer: category))
         }
       }.disposed(by: disposeBag)
+  }
+  
+  func header(at section: Int) -> String {
+    return sections[section].header
+  }
+}
+
+extension SideDishViewModel: UITableViewDataSource {
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return 3
+  }
+  
+  func tableView(
+    _ tableView: UITableView,
+    numberOfRowsInSection section: Int) -> Int {
+    return sections[section].items.count
+  }
+  
+  func tableView(
+    _ tableView: UITableView,
+    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard
+      let cell = tableView.dequeueReusableCell(
+            withIdentifier: "Cell",
+            for: indexPath) as? SideDishTableViewCell else {
+      return SideDishTableViewCell()
+    }
+    let data = sections[indexPath.section].items[indexPath.row]
+    cell.confiugre(data)
+    return cell
   }
 }

@@ -21,7 +21,7 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    tableView.dataSource = self
+    tableView.dataSource = viewModel
     tableView.delegate = self
     
     viewModel.subject
@@ -45,35 +45,18 @@ class ViewController: UIViewController {
   }
 }
 
-extension ViewController: UITableViewDataSource {
-  func numberOfSections(in tableView: UITableView) -> Int {
-    return 3
-  }
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    viewModel.sections[section].items.count
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? SideDishTableViewCell else { return SideDishTableViewCell() }
-    let data = viewModel.sections[indexPath.section].items[indexPath.row]
-    cell.confiugre(data)
-    return cell
-  }
-  
-  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return viewModel.sections[section].header
-  }
-}
-
 extension ViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+  func tableView(
+    _ tableView: UITableView,
+    heightForHeaderInSection section: Int) -> CGFloat {
     return 40
   }
   
-  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+  func tableView(
+    _ tableView: UITableView,
+    viewForHeaderInSection section: Int) -> UIView? {
     let header = SideDishTableViewHeader()
-    let title = viewModel.sections[section].header
+    let title = viewModel.header(at: section)
     header.configure(title: title)
     return header
   }
