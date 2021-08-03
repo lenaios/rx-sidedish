@@ -9,14 +9,20 @@ import Foundation
 
 struct Endpoint {
   
-  enum Path: String, CustomStringConvertible {
-    case main = "main"
-    case soup = "soup"
-    case side = "side"
-    case detail = "detail"
+  enum Path {
+    case main
+    case soup
+    case side
+    case detail(String)
     
-    var description: String {
-      return self.rawValue
+    func string() -> String {
+      switch self {
+      case .main: return "/main"
+      case .soup: return "/soup"
+      case .side: return "/side"
+      case .detail(let id):
+        return "/detail/" + id
+      }
     }
   }
   
@@ -32,7 +38,7 @@ extension Endpoint {
     var components = URLComponents()
     components.scheme = scheme
     components.host = host
-    components.path = "/develop/baminchan/" + path.description
+    components.path = "/develop/baminchan" + path.string()
     components.queryItems = queryItems
     
     guard let url = components.url else {
