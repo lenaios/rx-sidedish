@@ -32,7 +32,7 @@ final class SideDishViewModel {
         if let items = event.element?.body {
           let category = Category.main.rawValue
           self.sections[category].items = items
-          self.sections[category].header = "메인"
+          self.sections[category].header = "모두가 좋아하는 메인요리"
           self.subject.onNext(IndexSet(integer: category))
         }
       }.disposed(by: disposeBag)
@@ -42,7 +42,7 @@ final class SideDishViewModel {
         if let items = event.element?.body {
           let category = Category.soup.rawValue
           self.sections[category].items = items
-          self.sections[category].header = "국"
+          self.sections[category].header = "정성이 담긴 뜨끈뜨끈 국물요리"
           self.subject.onNext(IndexSet(integer: category))
         }
       }.disposed(by: disposeBag)
@@ -52,7 +52,7 @@ final class SideDishViewModel {
         if let items = event.element?.body {
           let category = Category.side.rawValue
           self.sections[category].items = items
-          self.sections[category].header = "반찬"
+          self.sections[category].header = "식탁을 풍성하게 하는 밑반찬"
           self.subject.onNext(IndexSet(integer: category))
         }
       }.disposed(by: disposeBag)

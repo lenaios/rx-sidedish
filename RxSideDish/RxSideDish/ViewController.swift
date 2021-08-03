@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     
     tableView.dataSource = self
+    tableView.delegate = self
     
     viewModel.subject
       .subscribe { event in
@@ -55,5 +56,18 @@ extension ViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return viewModel.sections[section].header
+  }
+}
+
+extension ViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 40
+  }
+  
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let header = SideDishTableViewHeader()
+    let title = viewModel.sections[section].header
+    header.configure(title: title)
+    return header
   }
 }
