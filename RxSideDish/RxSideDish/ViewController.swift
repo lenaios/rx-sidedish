@@ -47,8 +47,9 @@ extension ViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-    cell.textLabel?.text = viewModel.sections[indexPath.section].items[indexPath.row].title
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? SideDishTableViewCell else { return SideDishTableViewCell() }
+    let data = viewModel.sections[indexPath.section].items[indexPath.row]
+    cell.confiugre(data)
     return cell
   }
   
