@@ -20,5 +20,21 @@ struct SideDish: Decodable {
   let title: String
   let description: String
   let sPrice: String
-  let badge: [String]
+  let badge: [String]?
+}
+
+struct SideDishResponse: Decodable {
+  let hash: String
+  let data: SideDishDetail
+}
+
+struct SideDishDetail: Decodable {
+  let topImage: String
+  let thumbImages: [String]
+  let productDescription: String
+  let point: String
+  let deliveryInfo: String
+  let deliveryFee: String
+  let prices: [String]
+  let detailSection: [String]
 }

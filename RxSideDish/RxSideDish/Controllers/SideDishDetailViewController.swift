@@ -23,24 +23,32 @@ class SideDishDetailViewController: UIViewController {
   
   var viewModel: SideDishDetailViewModel!
   
-  private var images: [String] = [] {
-    didSet {
-      images.forEach { image in
-        setup(image: image)
-      }
-    }
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     self.contentView.configure(viewModel.sideDish)
     
+    viewModel.imagePublisher
+//      .subscribe(on: MainScheduler.instance)
+      .subscribe { [weak self] event in
+        guard let self = self else { return }
+        if let data = event.element {
+          DispatchQueue.main.async {
+            let image = UIImage(data: data)
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFill
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.75).isActive = true
+            self.imageStackView.addArrangedSubview(imageView)
+          }
+        }
+      }.disposed(by: disposeBag)
+    
     viewModel.subject
       .subscribe { [weak self] event in
         guard let self = self else { return }
         if let element = event.element {
-          self.images = element.thumbImages
+          self.viewModel.fetch(images: element.thumbImages)
         }
       }.disposed(by: disposeBag)
   }
@@ -48,21 +56,5 @@ class SideDishDetailViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.navigationBar.isHidden = false
-  }
-  
-  private func setup(image: String) {
-    let url = URL(string: image)!
-    guard let data = try? Data(contentsOf: url) else {
-      return
-    }
-    DispatchQueue.main.async { [weak self] in
-      guard let self = self else { return }
-      let image = UIImage(data: data)
-      let imageView = UIImageView(image: image)
-      imageView.contentMode = .scaleAspectFill
-      imageView.translatesAutoresizingMaskIntoConstraints = false
-      imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.75).isActive = true
-      self.imageStackView.addArrangedSubview(imageView)
-    }
   }
 }

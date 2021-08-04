@@ -12,6 +12,8 @@ protocol Service where Output: Decodable {
   
   associatedtype Output
   
+  var sessionManager: SessionManagable { get }
+  
   func fetch(_ path: Endpoint.Path) -> Observable<Output>
 }
 
@@ -19,7 +21,7 @@ enum NetworkError: Error {
   case invalidURL
 }
 
-class RepositoryService<T: Decodable> {
+class RepositoryService<T: Decodable>: Service {
   
   typealias Output = T
   
@@ -37,7 +39,7 @@ class RepositoryService<T: Decodable> {
   }
 }
 
-extension RepositoryService {
+extension Service {
   
   func fetch(_ path: Endpoint.Path) -> Observable<Output> {
     let url = Endpoint(path: path).url
