@@ -15,6 +15,10 @@ protocol Service where Output: Decodable {
   func fetch(_ path: Endpoint.Path) -> Observable<Output>
 }
 
+enum NetworkError: Error {
+  case invalidURL
+}
+
 class RepositoryService<T: Decodable> {
   
   typealias Output = T
@@ -23,6 +27,13 @@ class RepositoryService<T: Decodable> {
   
   init(sessionManager: SessionManagable) {
     self.sessionManager = sessionManager
+  }
+  
+  func fetch(_ url: String) -> Observable<Data> {
+    guard let url = URL(string: url) else {
+      return Observable.error(NetworkError.invalidURL)
+    }
+    return sessionManager.request(with: url)
   }
 }
 

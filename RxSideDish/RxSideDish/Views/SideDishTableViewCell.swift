@@ -20,7 +20,6 @@ class SideDishTableViewCell: UITableViewCell {
     title.text = data.title
     subtitle.text = data.description
     sale.text = data.sPrice
-    setup(image: data.image)
     data.badge?.forEach { label in
       let badge = BadgeLabel()
       badge.configure(label)
@@ -28,15 +27,8 @@ class SideDishTableViewCell: UITableViewCell {
     }
   }
   
-  private func setup(image: String) {
-    let url = URL(string: image)!
-    URLSession.shared.dataTask(with: url) { data, _, error in
-      guard let data = data else { return }
-      DispatchQueue.main.async {
-        let image = UIImage(data: data)
-        self.thumbnail.image = image
-      }
-    }.resume()
+  func confiugre(_ image: UIImage) {
+    self.thumbnail.image = image
   }
   
   override func prepareForReuse() {
