@@ -13,11 +13,9 @@ protocol SessionManagable {
   func request(with request: URLRequest) -> Observable<Data>
 }
 
-enum NetwrokError: Error {
-  case unknown
-}
-
 class SessionManager: SessionManagable {
+  
+  static let shared = SessionManager()
   
   let session = URLSession(configuration: .default)
 

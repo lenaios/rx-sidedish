@@ -9,12 +9,15 @@ import Foundation
 import RxSwift
 
 protocol Service where Output: Decodable {
+  
   associatedtype Output
+  
+  func fetch(_ path: Endpoint.Path) -> Observable<Output>
 }
 
-class RepositoryService: Service {
+class RepositoryService<T: Decodable> {
   
-  typealias Output = Response
+  typealias Output = T
   
   let sessionManager: SessionManagable
   

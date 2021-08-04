@@ -14,9 +14,10 @@ class ViewController: UIViewController {
   
   private let disposeBag = DisposeBag()
   
-  private let repoService = RepositoryService(sessionManager: SessionManager())
+  private let repositoryService: RepositoryService<Response>
+    = RepositoryService(sessionManager: SessionManager())
   
-  private lazy var viewModel = SideDishViewModel(repoService: repoService)
+  private lazy var viewModel = SideDishViewModel(repositoryService: repositoryService)
   
   override func viewDidLoad() {
     super.viewDidLoad()

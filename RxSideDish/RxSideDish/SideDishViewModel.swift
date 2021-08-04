@@ -11,7 +11,7 @@ import UIKit.UITableView
 
 final class SideDishViewModel: NSObject {
   
-  private let repoService: RepositoryService
+  private let repositoryService: RepositoryService<Response>
   
   private var disposeBag = DisposeBag()
   
@@ -19,17 +19,17 @@ final class SideDishViewModel: NSObject {
   
   var subject = PublishSubject<IndexSet>()
   
-  init(repoService: RepositoryService) {
+  init(repositoryService: RepositoryService<Response>) {
     var sections:[SectionModel] = []
     Category.allCases.forEach { category in
       sections.append(SectionModel(header: "", category: category, items: []))
     }
     self.sections = sections
-    self.repoService = repoService
+    self.repositoryService = repositoryService
   }
   
   func load() {
-    repoService.fetch(.main)
+    repositoryService.fetch(.main)
       .subscribe { event in
         if let items = event.element?.body {
           let category = Category.main.rawValue
@@ -39,7 +39,7 @@ final class SideDishViewModel: NSObject {
         }
       }.disposed(by: disposeBag)
     
-    repoService.fetch(.soup)
+    repositoryService.fetch(.soup)
       .subscribe { event in
         if let items = event.element?.body {
           let category = Category.soup.rawValue
@@ -49,7 +49,7 @@ final class SideDishViewModel: NSObject {
         }
       }.disposed(by: disposeBag)
     
-    repoService.fetch(.side)
+    repositoryService.fetch(.side)
       .subscribe { event in
         if let items = event.element?.body {
           let category = Category.side.rawValue
@@ -62,6 +62,14 @@ final class SideDishViewModel: NSObject {
   
   func header(at section: Int) -> String {
     return sections[section].header
+  }
+  
+  func id(for index: IndexPath) -> String {
+    return sections[index.section].items[index.row].detailHash
+  }
+  
+  func title(at index: IndexPath) -> String {
+    return sections[index.section].items[index.row].title
   }
 }
 

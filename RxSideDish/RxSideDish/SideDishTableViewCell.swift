@@ -21,7 +21,7 @@ class SideDishTableViewCell: UITableViewCell {
     subtitle.text = data.description
     sale.text = data.sPrice
     setup(image: data.image)
-    data.badge.forEach { label in
+    data.badge?.forEach { label in
       let badge = BadgeLabel()
       badge.configure(label)
       badgeStackView.addArrangedSubview(badge)
