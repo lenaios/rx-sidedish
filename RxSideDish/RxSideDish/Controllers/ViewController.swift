@@ -15,7 +15,7 @@ class ViewController: UIViewController {
   private let disposeBag = DisposeBag()
   
   private let repositoryService: RepositoryService<Response>
-    = RepositoryService(sessionManager: SessionManager())
+    = RepositoryService(sessionManager: SessionManager.shared)
   
   private lazy var viewModel = SideDishViewModel(repositoryService: repositoryService)
   
@@ -25,6 +25,17 @@ class ViewController: UIViewController {
     tableView.dataSource = viewModel
     tableView.delegate = self
     
+    bind()
+    
+    viewModel.load()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.navigationBar.isHidden = true
+  }
+  
+  private func bind() {
     viewModel.subject
       .subscribe { event in
         DispatchQueue.main.sync {
@@ -36,13 +47,6 @@ class ViewController: UIViewController {
         }
       }
       .disposed(by: disposeBag)
-    
-    viewModel.load()
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    navigationController?.navigationBar.isHidden = true
   }
 }
 
@@ -60,5 +64,20 @@ extension ViewController: UITableViewDelegate {
     let title = viewModel.header(at: section)
     header.configure(title: title)
     return header
+  }
+  
+  func tableView(
+    _ tableView: UITableView,
+    didSelectRowAt indexPath: IndexPath) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    guard
+      let detailViewController = storyboard.instantiateViewController(
+        withIdentifier: SideDishDetailViewController.identifier) as? SideDishDetailViewController else {
+      return
+    }
+    let sideDish = viewModel.sideDish(at: indexPath)
+    let service = RepositoryService<SideDishResponse>(sessionManager: SessionManager.shared)
+    detailViewController.viewModel = SideDishDetailViewModel(repositoryService: service, model: sideDish)
+    navigationController?.pushViewController(detailViewController, animated: true)
   }
 }

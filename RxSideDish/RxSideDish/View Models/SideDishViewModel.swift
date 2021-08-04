@@ -63,13 +63,9 @@ final class SideDishViewModel: NSObject {
   func header(at section: Int) -> String {
     return sections[section].header
   }
-  
-  func id(for index: IndexPath) -> String {
-    return sections[index.section].items[index.row].detailHash
-  }
-  
-  func title(at index: IndexPath) -> String {
-    return sections[index.section].items[index.row].title
+    
+  func sideDish(at index: IndexPath) -> SideDish {
+    return sections[index.section].items[index.row]
   }
 }
 
@@ -89,12 +85,22 @@ extension SideDishViewModel: UITableViewDataSource {
     cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard
       let cell = tableView.dequeueReusableCell(
-            withIdentifier: "Cell",
-            for: indexPath) as? SideDishTableViewCell else {
+        withIdentifier: "Cell",
+        for: indexPath) as? SideDishTableViewCell else {
       return SideDishTableViewCell()
     }
     let data = sections[indexPath.section].items[indexPath.row]
     cell.confiugre(data)
+    // for image
+    repositoryService.fetch(data.image)
+      .subscribe { event in
+        if let data = event.element,
+           let image = UIImage(data: data) {
+          DispatchQueue.main.async {
+            cell.confiugre(image)
+          }
+        }
+      }.disposed(by: disposeBag)
     return cell
   }
 }

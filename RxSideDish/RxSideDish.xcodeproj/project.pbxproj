@@ -20,6 +20,7 @@
 		D03DDC5C26B196290096F756 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = D03DDC5B26B196290096F756 /* RxCocoa */; };
 		D03DDC6026B1BC0F0096F756 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03DDC5F26B1BC0F0096F756 /* Endpoint.swift */; };
 		D03DDC6226B1C4F40096F756 /* RepositoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03DDC6126B1C4F40096F756 /* RepositoryService.swift */; };
+		D0453C8C26BA6B1E0094B0E4 /* SideDishContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0453C8B26BA6B1E0094B0E4 /* SideDishContentView.swift */; };
 		D0B2251626B3D31D009D67E9 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2251526B3D31D009D67E9 /* SessionManager.swift */; };
 		D0B2251826B56E39009D67E9 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2251726B56E39009D67E9 /* Response.swift */; };
 		D0B2251A26B57346009D67E9 /* SideDishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2251926B57346009D67E9 /* SideDishViewModel.swift */; };
@@ -28,6 +29,8 @@
 		D0B2252226B848FB009D67E9 /* SideDishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2252026B848FB009D67E9 /* SideDishTableViewCell.swift */; };
 		D0B2252526B8EC60009D67E9 /* SideDishTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2252426B8EC60009D67E9 /* SideDishTableViewHeader.swift */; };
 		D0B2252726B90D94009D67E9 /* BadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2252626B90D94009D67E9 /* BadgeLabel.swift */; };
+		D0B2252926B94CC3009D67E9 /* SideDishDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2252826B94CC3009D67E9 /* SideDishDetailViewController.swift */; };
+		D0B2252D26B98174009D67E9 /* SideDishDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2252C26B98174009D67E9 /* SideDishDetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +67,7 @@
 		D03DDC4826B1918C0096F756 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D03DDC5F26B1BC0F0096F756 /* Endpoint.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D03DDC6126B1C4F40096F756 /* RepositoryService.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RepositoryService.swift; sourceTree = "<group>"; tabWidth = 2; };
+		D0453C8B26BA6B1E0094B0E4 /* SideDishContentView.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SideDishContentView.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D0B2251526B3D31D009D67E9 /* SessionManager.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D0B2251726B56E39009D67E9 /* Response.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D0B2251926B57346009D67E9 /* SideDishViewModel.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SideDishViewModel.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -71,6 +75,8 @@
 		D0B2252026B848FB009D67E9 /* SideDishTableViewCell.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SideDishTableViewCell.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D0B2252426B8EC60009D67E9 /* SideDishTableViewHeader.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SideDishTableViewHeader.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D0B2252626B90D94009D67E9 /* BadgeLabel.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = BadgeLabel.swift; sourceTree = "<group>"; tabWidth = 2; };
+		D0B2252826B94CC3009D67E9 /* SideDishDetailViewController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SideDishDetailViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
+		D0B2252C26B98174009D67E9 /* SideDishDetailViewModel.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SideDishDetailViewModel.swift; sourceTree = "<group>"; tabWidth = 2; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,21 +131,15 @@
 		D03DDC2326B191890096F756 /* RxSideDish */ = {
 			isa = PBXGroup;
 			children = (
-				D03DDC2426B191890096F756 /* AppDelegate.swift */,
-				D03DDC2626B191890096F756 /* SceneDelegate.swift */,
-				D03DDC2826B191890096F756 /* ViewController.swift */,
-				D03DDC2A26B191890096F756 /* Main.storyboard */,
-				D0B2252426B8EC60009D67E9 /* SideDishTableViewHeader.swift */,
-				D03DDC2D26B1918C0096F756 /* Assets.xcassets */,
-				D03DDC2F26B1918C0096F756 /* LaunchScreen.storyboard */,
+				D0453C8926BA6AA90094B0E4 /* Supporting Files */,
+				D0453C8726BA6A780094B0E4 /* Controllers */,
+				D0453C8826BA6A8B0094B0E4 /* View Models */,
+				D0453C8A26BA6ACB0094B0E4 /* Views */,
 				D03DDC3226B1918C0096F756 /* Info.plist */,
 				D03DDC5F26B1BC0F0096F756 /* Endpoint.swift */,
 				D03DDC6126B1C4F40096F756 /* RepositoryService.swift */,
 				D0B2251526B3D31D009D67E9 /* SessionManager.swift */,
 				D0B2251726B56E39009D67E9 /* Response.swift */,
-				D0B2251926B57346009D67E9 /* SideDishViewModel.swift */,
-				D0B2252026B848FB009D67E9 /* SideDishTableViewCell.swift */,
-				D0B2252626B90D94009D67E9 /* BadgeLabel.swift */,
 				D0B2251E26B7FF9F009D67E9 /* SectionModel.swift */,
 			);
 			path = RxSideDish;
@@ -161,6 +161,47 @@
 				D03DDC4826B1918C0096F756 /* Info.plist */,
 			);
 			path = RxSideDishUITests;
+			sourceTree = "<group>";
+		};
+		D0453C8726BA6A780094B0E4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D03DDC2826B191890096F756 /* ViewController.swift */,
+				D0B2252826B94CC3009D67E9 /* SideDishDetailViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D0453C8826BA6A8B0094B0E4 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				D0B2251926B57346009D67E9 /* SideDishViewModel.swift */,
+				D0B2252C26B98174009D67E9 /* SideDishDetailViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		D0453C8926BA6AA90094B0E4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D03DDC2426B191890096F756 /* AppDelegate.swift */,
+				D03DDC2626B191890096F756 /* SceneDelegate.swift */,
+				D03DDC2D26B1918C0096F756 /* Assets.xcassets */,
+				D03DDC2F26B1918C0096F756 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D0453C8A26BA6ACB0094B0E4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D0B2252426B8EC60009D67E9 /* SideDishTableViewHeader.swift */,
+				D0B2252026B848FB009D67E9 /* SideDishTableViewCell.swift */,
+				D0B2252626B90D94009D67E9 /* BadgeLabel.swift */,
+				D03DDC2A26B191890096F756 /* Main.storyboard */,
+				D0453C8B26BA6B1E0094B0E4 /* SideDishContentView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,11 +351,14 @@
 				D0B2251626B3D31D009D67E9 /* SessionManager.swift in Sources */,
 				D0B2251A26B57346009D67E9 /* SideDishViewModel.swift in Sources */,
 				D0B2252726B90D94009D67E9 /* BadgeLabel.swift in Sources */,
+				D0453C8C26BA6B1E0094B0E4 /* SideDishContentView.swift in Sources */,
 				D03DDC2526B191890096F756 /* AppDelegate.swift in Sources */,
 				D0B2252226B848FB009D67E9 /* SideDishTableViewCell.swift in Sources */,
 				D03DDC6026B1BC0F0096F756 /* Endpoint.swift in Sources */,
 				D03DDC2726B191890096F756 /* SceneDelegate.swift in Sources */,
 				D0B2251826B56E39009D67E9 /* Response.swift in Sources */,
+				D0B2252D26B98174009D67E9 /* SideDishDetailViewModel.swift in Sources */,
+				D0B2252926B94CC3009D67E9 /* SideDishDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

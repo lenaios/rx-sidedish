@@ -12,6 +12,8 @@ class SideDishDetailViewController: UIViewController {
   
   @IBOutlet weak var imageScrollView: UIScrollView!
   @IBOutlet weak var imageStackView: UIStackView!
+  @IBOutlet weak var contentStackView: UIStackView!
+  @IBOutlet weak var contentView: SideDishContentView!
   
   static var identifier: String {
     return String(describing: self)
@@ -19,7 +21,7 @@ class SideDishDetailViewController: UIViewController {
   
   private let disposeBag = DisposeBag()
   
-  var viewModel: SideDishDetailViewModel?
+  var viewModel: SideDishDetailViewModel!
   
   private var images: [String] = [] {
     didSet {
@@ -32,7 +34,9 @@ class SideDishDetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    viewModel?.subject
+    self.contentView.configure(viewModel.sideDish)
+    
+    viewModel.subject
       .subscribe { [weak self] event in
         guard let self = self else { return }
         if let element = event.element {
