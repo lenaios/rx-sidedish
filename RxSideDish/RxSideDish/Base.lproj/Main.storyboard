@@ -120,6 +120,49 @@
             </objects>
             <point key="canvasLocation" x="893" y="73"/>
         </scene>
+        <!--Side Dish Detail View Controller-->
+        <scene sceneID="85S-7M-RW2">
+            <objects>
+                <viewController storyboardIdentifier="SideDishDetailViewController" id="S9V-NB-6Du" customClass="SideDishDetailViewController" customModule="RxSideDish" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3Ni-7D-sRe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nv8-qR-YSH">
+                                <rect key="frame" x="0.0" y="44" width="414" height="310.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKw-hX-eyt">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="311"/>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="eKw-hX-eyt" firstAttribute="top" secondItem="Nv8-qR-YSH" secondAttribute="top" id="H6o-ju-OcY"/>
+                                    <constraint firstItem="eKw-hX-eyt" firstAttribute="leading" secondItem="Nv8-qR-YSH" secondAttribute="leading" id="ZU1-B7-rtR"/>
+                                    <constraint firstItem="eKw-hX-eyt" firstAttribute="width" secondItem="Nv8-qR-YSH" secondAttribute="width" priority="750" id="dCc-Id-cUb"/>
+                                    <constraint firstItem="eKw-hX-eyt" firstAttribute="height" secondItem="Nv8-qR-YSH" secondAttribute="height" multiplier="1.00168" id="iOn-hC-Dmw"/>
+                                    <constraint firstAttribute="width" secondItem="Nv8-qR-YSH" secondAttribute="height" multiplier="4:3" id="idY-gQ-n4T"/>
+                                    <constraint firstAttribute="bottom" secondItem="eKw-hX-eyt" secondAttribute="bottom" constant="-0.5" id="oOb-Dd-nw2"/>
+                                    <constraint firstAttribute="trailing" secondItem="eKw-hX-eyt" secondAttribute="trailing" id="yO0-WF-xfe"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="0RL-Dv-BYG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Nv8-qR-YSH" firstAttribute="leading" secondItem="0RL-Dv-BYG" secondAttribute="leading" id="3Nb-os-lxX"/>
+                            <constraint firstItem="Nv8-qR-YSH" firstAttribute="top" secondItem="0RL-Dv-BYG" secondAttribute="top" id="pA1-CS-mDu"/>
+                            <constraint firstItem="Nv8-qR-YSH" firstAttribute="trailing" secondItem="0RL-Dv-BYG" secondAttribute="trailing" id="sqc-tW-g2R"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageScrollView" destination="Nv8-qR-YSH" id="f9t-0V-scJ"/>
+                        <outlet property="imageStackView" destination="eKw-hX-eyt" id="p49-ZS-HFu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fqd-tm-FlQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1615.9420289855075" y="72.991071428571431"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="stF-zF-co3">
             <objects>
@@ -141,7 +184,7 @@
     </scenes>
     <designables>
         <designable name="5m4-m9-XEV">
-            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="51.5" height="30.5"/>
         </designable>
     </designables>
     <resources>
