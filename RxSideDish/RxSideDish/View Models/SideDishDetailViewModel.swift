@@ -16,7 +16,8 @@ class SideDishDetailViewModel {
   
   let subject = PublishSubject<SideDishDetail>()
   
-  let imagePublisher = PublishSubject<Data>()
+  let thumbnail = PublishSubject<Data>()
+  let detailImage = PublishSubject<Data>()
   
   var sideDish: SideDish
   
@@ -30,21 +31,21 @@ class SideDishDetailViewModel {
   
   private func load(_ id: String) {
     repositoryService.fetch(.detail(id))
-      .subscribe { event in
-        if let element = event.element {
-          self.subject.onNext(element.data)
-        }
-      }.disposed(by: disposeBag)
+      .map { $0.data }
+      .subscribe(onNext: {
+        self.subject.onNext($0)
+        self.fetch(images: $0.thumbImages, subsriber: self.thumbnail)
+        self.fetch(images: $0.detailSection, subsriber: self.detailImage)
+      })
+      .disposed(by: disposeBag)
   }
   
-  func fetch(images: [String]) {
-    images.forEach { image in
-      repositoryService.fetch(image)
-        .subscribe { event in
-          if let element = event.element {
-            self.imagePublisher.onNext(element)
-          }
-        }.disposed(by: disposeBag)
+  func fetch(images: [String], subsriber: PublishSubject<Data>) {
+    var iterator = images.makeIterator()
+    while let image = iterator.next() {
+      self.repositoryService.fetch(image)
+        .subscribe(subsriber)
+        .disposed(by: self.disposeBag)
     }
   }
 }

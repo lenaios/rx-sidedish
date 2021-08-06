@@ -152,54 +152,11 @@
                                             <constraint firstItem="eKw-hX-eyt" firstAttribute="leading" secondItem="Nv8-qR-YSH" secondAttribute="leading" id="nhs-EY-UQK"/>
                                         </constraints>
                                     </scrollView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="CSn-zI-4nZ">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="CSn-zI-4nZ">
                                         <rect key="frame" x="0.0" y="310.5" width="414" height="585.5"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X7e-vB-EaY" customClass="SideDishContentView" customModule="RxSideDish" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="585.5"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYC-77-GLc">
-                                                        <rect key="frame" x="20" y="20" width="374" height="0.0"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dri-I3-EAp">
-                                                        <rect key="frame" x="20" y="30" width="374" height="0.0"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sfh-mT-cec">
-                                                        <rect key="frame" x="20" y="40" width="374" height="0.0"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="Sfh-mT-cec" firstAttribute="top" secondItem="dri-I3-EAp" secondAttribute="bottom" constant="10" id="1uA-hg-mC6"/>
-                                                    <constraint firstItem="aYC-77-GLc" firstAttribute="top" secondItem="X7e-vB-EaY" secondAttribute="top" constant="20" id="78R-us-l4y"/>
-                                                    <constraint firstAttribute="trailing" secondItem="dri-I3-EAp" secondAttribute="trailing" constant="20" id="Grb-1r-Jkn"/>
-                                                    <constraint firstItem="aYC-77-GLc" firstAttribute="leading" secondItem="X7e-vB-EaY" secondAttribute="leading" constant="20" id="YyK-Ys-n8z"/>
-                                                    <constraint firstItem="Sfh-mT-cec" firstAttribute="leading" secondItem="X7e-vB-EaY" secondAttribute="leading" constant="20" id="jKu-DP-nYW"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Sfh-mT-cec" secondAttribute="trailing" constant="20" id="jmh-0C-Xie"/>
-                                                    <constraint firstItem="dri-I3-EAp" firstAttribute="top" secondItem="aYC-77-GLc" secondAttribute="bottom" constant="10" id="lv5-Cl-aaG"/>
-                                                    <constraint firstItem="dri-I3-EAp" firstAttribute="leading" secondItem="X7e-vB-EaY" secondAttribute="leading" constant="20" id="vra-Xj-Pkg"/>
-                                                    <constraint firstAttribute="trailing" secondItem="aYC-77-GLc" secondAttribute="trailing" constant="20" id="yDK-Vi-bS3"/>
-                                                </constraints>
-                                                <connections>
-                                                    <outlet property="price" destination="Sfh-mT-cec" id="snx-vO-S3L"/>
-                                                    <outlet property="subtitle" destination="dri-I3-EAp" id="UHz-nD-MEr"/>
-                                                    <outlet property="title" destination="aYC-77-GLc" id="FnT-Ll-Ovw"/>
-                                                </connections>
-                                            </view>
-                                        </subviews>
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="CSn-zI-4nZ" secondAttribute="bottom" id="0FJ-s7-Beb"/>
                                     <constraint firstItem="Nv8-qR-YSH" firstAttribute="leading" secondItem="1tu-op-jrk" secondAttribute="leading" id="56s-w6-xc1"/>
                                     <constraint firstItem="Nv8-qR-YSH" firstAttribute="trailing" secondItem="1tu-op-jrk" secondAttribute="trailing" id="7UB-ZB-1tY"/>
                                     <constraint firstItem="1tu-op-jrk" firstAttribute="height" secondItem="rM7-4s-f3w" secondAttribute="height" priority="750" id="Bmm-ck-mt4"/>
@@ -207,6 +164,7 @@
                                     <constraint firstItem="1tu-op-jrk" firstAttribute="top" secondItem="rM7-4s-f3w" secondAttribute="top" id="Lay-3t-MIj"/>
                                     <constraint firstAttribute="trailing" secondItem="CSn-zI-4nZ" secondAttribute="trailing" id="MCw-5d-rnY"/>
                                     <constraint firstItem="CSn-zI-4nZ" firstAttribute="leading" secondItem="rM7-4s-f3w" secondAttribute="leading" id="UcZ-Ie-FmR"/>
+                                    <constraint firstItem="CSn-zI-4nZ" firstAttribute="bottom" secondItem="1tu-op-jrk" secondAttribute="bottom" id="Ykk-aN-MSP"/>
                                     <constraint firstItem="1tu-op-jrk" firstAttribute="width" secondItem="rM7-4s-f3w" secondAttribute="width" id="cra-XZ-EvF"/>
                                     <constraint firstAttribute="trailing" secondItem="1tu-op-jrk" secondAttribute="trailing" id="eus-bP-ve7"/>
                                     <constraint firstItem="CSn-zI-4nZ" firstAttribute="top" secondItem="Nv8-qR-YSH" secondAttribute="bottom" id="mwc-4t-Gka"/>
@@ -218,15 +176,14 @@
                         <viewLayoutGuide key="safeArea" id="0RL-Dv-BYG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="rM7-4s-f3w" firstAttribute="bottom" secondItem="0RL-Dv-BYG" secondAttribute="bottom" constant="34" id="9Tk-Lt-kf0"/>
+                            <constraint firstItem="rM7-4s-f3w" firstAttribute="bottom" secondItem="3Ni-7D-sRe" secondAttribute="bottom" id="9Tk-Lt-kf0"/>
                             <constraint firstItem="0RL-Dv-BYG" firstAttribute="trailing" secondItem="rM7-4s-f3w" secondAttribute="trailing" id="FdM-jX-a88"/>
-                            <constraint firstItem="0RL-Dv-BYG" firstAttribute="top" secondItem="rM7-4s-f3w" secondAttribute="top" constant="44" id="ZPZ-UU-k1S"/>
+                            <constraint firstAttribute="top" secondItem="rM7-4s-f3w" secondAttribute="top" id="ZPZ-UU-k1S"/>
                             <constraint firstItem="rM7-4s-f3w" firstAttribute="leading" secondItem="0RL-Dv-BYG" secondAttribute="leading" id="hTZ-Oe-MDe"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="contentStackView" destination="CSn-zI-4nZ" id="MyX-6w-Um0"/>
-                        <outlet property="contentView" destination="X7e-vB-EaY" id="UL4-u6-qyU"/>
                         <outlet property="imageScrollView" destination="Nv8-qR-YSH" id="f9t-0V-scJ"/>
                         <outlet property="imageStackView" destination="eKw-hX-eyt" id="p49-ZS-HFu"/>
                     </connections>
