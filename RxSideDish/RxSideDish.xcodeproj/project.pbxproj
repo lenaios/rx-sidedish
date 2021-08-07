@@ -137,8 +137,7 @@
 				D03DDC5F26B1BC0F0096F756 /* Endpoint.swift */,
 				D03DDC6126B1C4F40096F756 /* RepositoryService.swift */,
 				D0B2251526B3D31D009D67E9 /* SessionManager.swift */,
-				D0B2251726B56E39009D67E9 /* SideDishes.swift */,
-				D0B2251E26B7FF9F009D67E9 /* SectionModel.swift */,
+				D0453C8D26BE45600094B0E4 /* Models */,
 			);
 			path = RxSideDish;
 			sourceTree = "<group>";
@@ -199,6 +198,15 @@
 				D03DDC2A26B191890096F756 /* Main.storyboard */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D0453C8D26BE45600094B0E4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D0B2251726B56E39009D67E9 /* SideDishes.swift */,
+				D0B2251E26B7FF9F009D67E9 /* SectionModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

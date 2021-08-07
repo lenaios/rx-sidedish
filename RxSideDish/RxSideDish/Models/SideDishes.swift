@@ -19,6 +19,7 @@ struct SideDish: Decodable {
   let deliveryType: [String]
   let title: String
   let description: String
+  let nPrice: String?
   let sPrice: String
   let badge: [String]?
 }

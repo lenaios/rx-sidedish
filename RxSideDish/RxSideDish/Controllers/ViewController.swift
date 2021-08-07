@@ -46,7 +46,7 @@ class ViewController: UIViewController {
       .drive { self.showDetail(for: $0) }
       .disposed(by: disposeBag)
 
-    viewModel.subject
+    viewModel.sectionUpdated
       .subscribe(onNext: { data in
         DispatchQueue.main.sync {
           self.tableView.reloadSections(data, with: .automatic)

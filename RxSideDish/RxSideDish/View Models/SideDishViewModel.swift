@@ -17,7 +17,7 @@ final class SideDishViewModel: NSObject {
   
   private var sections: [SectionModel]
   
-  var subject = PublishSubject<IndexSet>()
+  var sectionUpdated = PublishSubject<IndexSet>()
   
   init(repositoryService: RepositoryService<SideDishes>) {
     var sections:[SectionModel] = []
@@ -35,7 +35,7 @@ final class SideDishViewModel: NSObject {
           let category = Category.main.rawValue
           self.sections[category].items = items
           self.sections[category].header = "모두가 좋아하는 메인요리"
-          self.subject.onNext(IndexSet(integer: category))
+          self.sectionUpdated.onNext(IndexSet(integer: category))
         }
       }.disposed(by: disposeBag)
     
@@ -45,7 +45,7 @@ final class SideDishViewModel: NSObject {
           let category = Category.soup.rawValue
           self.sections[category].items = items
           self.sections[category].header = "정성이 담긴 뜨끈뜨끈 국물요리"
-          self.subject.onNext(IndexSet(integer: category))
+          self.sectionUpdated.onNext(IndexSet(integer: category))
         }
       }.disposed(by: disposeBag)
     
@@ -55,7 +55,7 @@ final class SideDishViewModel: NSObject {
           let category = Category.side.rawValue
           self.sections[category].items = items
           self.sections[category].header = "식탁을 풍성하게 하는 밑반찬"
-          self.subject.onNext(IndexSet(integer: category))
+          self.sectionUpdated.onNext(IndexSet(integer: category))
         }
       }.disposed(by: disposeBag)
   }
@@ -90,17 +90,15 @@ extension SideDishViewModel: UITableViewDataSource {
       return SideDishTableViewCell()
     }
     let data = sections[indexPath.section].items[indexPath.row]
-    cell.confiugre(data)
+    cell.configure(data)
     // for image
     repositoryService.fetch(data.image)
-      .subscribe { event in
-        if let data = event.element,
-           let image = UIImage(data: data) {
-          DispatchQueue.main.async {
-            cell.confiugre(image)
-          }
+      .observe(on: MainScheduler.instance)
+      .subscribe(onNext: { data in
+        if let image = UIImage(data: data) {
+          cell.confiugre(image)
         }
-      }.disposed(by: disposeBag)
+      }).disposed(by: disposeBag)
     return cell
   }
 }

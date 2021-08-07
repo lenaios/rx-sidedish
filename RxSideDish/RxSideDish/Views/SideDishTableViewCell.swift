@@ -20,10 +20,14 @@ class SideDishTableViewCell: UITableViewCell {
     return String(describing: self)
   }
   
-  func confiugre(_ data: SideDish) {
+  func configure(_ data: SideDish) {
     title.text = data.title
     subtitle.text = data.description
     sale.text = data.sPrice
+    if let price = data.nPrice {
+      normal.attributedText = .init(
+        string: price, attributes: [.strikethroughStyle: 1])
+    }
     data.badge?.forEach { label in
       let badge = BadgeLabel()
       badge.configure(label)
@@ -37,9 +41,7 @@ class SideDishTableViewCell: UITableViewCell {
   
   override func prepareForReuse() {
     super.prepareForReuse()
-    title.text = nil
-    subtitle.text = nil
-    sale.text = nil
+    normal.text = ""
     badgeStackView.arrangedSubviews.forEach { view in
       view.removeFromSuperview()
     }
