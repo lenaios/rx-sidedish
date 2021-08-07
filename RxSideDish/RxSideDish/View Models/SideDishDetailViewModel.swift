@@ -10,7 +10,7 @@ import RxSwift
 
 class SideDishDetailViewModel {
   
-  private let repositoryService: RepositoryService<SideDishResponse>
+  private let repositoryService: RepositoryService<SideDishDetailDTO>
   
   private let disposeBag = DisposeBag()
   
@@ -22,7 +22,7 @@ class SideDishDetailViewModel {
   var sideDish: SideDish
   
   init(
-    repositoryService: RepositoryService<SideDishResponse>,
+    repositoryService: RepositoryService<SideDishDetailDTO>,
     model: SideDish) {
     self.repositoryService = repositoryService
     self.sideDish = model

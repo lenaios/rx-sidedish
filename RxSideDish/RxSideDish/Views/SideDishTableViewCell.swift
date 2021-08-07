@@ -16,6 +16,10 @@ class SideDishTableViewCell: UITableViewCell {
   @IBOutlet weak var sale: UILabel!
   @IBOutlet weak var badgeStackView: UIStackView!
   
+  static var identifier: String {
+    return String(describing: self)
+  }
+  
   func confiugre(_ data: SideDish) {
     title.text = data.title
     subtitle.text = data.description

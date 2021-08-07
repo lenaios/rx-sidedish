@@ -11,7 +11,7 @@ import UIKit.UITableView
 
 final class SideDishViewModel: NSObject {
   
-  private let repositoryService: RepositoryService<Response>
+  private let repositoryService: RepositoryService<SideDishes>
   
   private var disposeBag = DisposeBag()
   
@@ -19,7 +19,7 @@ final class SideDishViewModel: NSObject {
   
   var subject = PublishSubject<IndexSet>()
   
-  init(repositoryService: RepositoryService<Response>) {
+  init(repositoryService: RepositoryService<SideDishes>) {
     var sections:[SectionModel] = []
     Category.allCases.forEach { category in
       sections.append(SectionModel(header: "", category: category, items: []))
@@ -85,7 +85,7 @@ extension SideDishViewModel: UITableViewDataSource {
     cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard
       let cell = tableView.dequeueReusableCell(
-        withIdentifier: "Cell",
+        withIdentifier: SideDishTableViewCell.identifier,
         for: indexPath) as? SideDishTableViewCell else {
       return SideDishTableViewCell()
     }

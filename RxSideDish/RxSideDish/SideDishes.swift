@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Response: Decodable {
+struct SideDishes: Decodable {
   var statusCode: Int
   var body: [SideDish]
 }
@@ -23,7 +23,7 @@ struct SideDish: Decodable {
   let badge: [String]?
 }
 
-struct SideDishResponse: Decodable {
+struct SideDishDetailDTO: Decodable {
   let hash: String
   let data: SideDishDetail
 }

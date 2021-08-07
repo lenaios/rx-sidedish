@@ -14,7 +14,7 @@ class ViewController: UIViewController {
   
   private let disposeBag = DisposeBag()
   
-  private let repositoryService: RepositoryService<Response>
+  private let repositoryService: RepositoryService<SideDishes>
     = RepositoryService(sessionManager: SessionManager.shared)
   
   private lazy var viewModel = SideDishViewModel(repositoryService: repositoryService)
@@ -22,8 +22,13 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    tableView.dataSource = viewModel
-    tableView.delegate = self
+    tableView.rx
+      .setDataSource(viewModel)
+      .disposed(by: disposeBag)
+    
+    tableView.rx
+      .setDelegate(self)
+      .disposed(by: disposeBag)
     
     bind()
     
@@ -60,7 +65,7 @@ private extension ViewController {
       return
     }
     let sideDish = viewModel.sideDish(at: indexPath)
-    let service = RepositoryService<SideDishResponse>(sessionManager: SessionManager.shared)
+    let service = RepositoryService<SideDishDetailDTO>(sessionManager: SessionManager.shared)
     detailViewController.viewModel = SideDishDetailViewModel(repositoryService: service, model: sideDish)
     navigationController?.pushViewController(detailViewController, animated: true)
   }
