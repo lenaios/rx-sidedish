@@ -152,8 +152,15 @@
                                             <constraint firstItem="eKw-hX-eyt" firstAttribute="leading" secondItem="Nv8-qR-YSH" secondAttribute="leading" id="nhs-EY-UQK"/>
                                         </constraints>
                                     </scrollView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hcr-0b-y1P" userLabel="Detail View" customClass="SideDishDetailView" customModule="RxSideDish" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="310.5" width="414" height="120"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="120" id="5fO-tN-ujP"/>
+                                        </constraints>
+                                    </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="CSn-zI-4nZ">
-                                        <rect key="frame" x="0.0" y="310.5" width="414" height="585.5"/>
+                                        <rect key="frame" x="0.0" y="430.5" width="414" height="465.5"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -167,9 +174,12 @@
                                     <constraint firstItem="CSn-zI-4nZ" firstAttribute="bottom" secondItem="1tu-op-jrk" secondAttribute="bottom" id="Ykk-aN-MSP"/>
                                     <constraint firstItem="1tu-op-jrk" firstAttribute="width" secondItem="rM7-4s-f3w" secondAttribute="width" id="cra-XZ-EvF"/>
                                     <constraint firstAttribute="trailing" secondItem="1tu-op-jrk" secondAttribute="trailing" id="eus-bP-ve7"/>
-                                    <constraint firstItem="CSn-zI-4nZ" firstAttribute="top" secondItem="Nv8-qR-YSH" secondAttribute="bottom" id="mwc-4t-Gka"/>
+                                    <constraint firstItem="Hcr-0b-y1P" firstAttribute="trailing" secondItem="1tu-op-jrk" secondAttribute="trailing" id="hSH-CB-whI"/>
+                                    <constraint firstItem="Hcr-0b-y1P" firstAttribute="leading" secondItem="1tu-op-jrk" secondAttribute="leading" id="lhR-Ci-SVD"/>
+                                    <constraint firstItem="Hcr-0b-y1P" firstAttribute="top" secondItem="Nv8-qR-YSH" secondAttribute="bottom" id="nPa-dk-qrn"/>
                                     <constraint firstAttribute="bottom" secondItem="1tu-op-jrk" secondAttribute="bottom" id="qcE-ef-Hl1"/>
                                     <constraint firstItem="Nv8-qR-YSH" firstAttribute="top" secondItem="1tu-op-jrk" secondAttribute="top" id="r0b-MO-2O8"/>
+                                    <constraint firstItem="CSn-zI-4nZ" firstAttribute="top" secondItem="Hcr-0b-y1P" secondAttribute="bottom" id="xd3-5b-BNs"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -183,7 +193,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="contentStackView" destination="CSn-zI-4nZ" id="MyX-6w-Um0"/>
+                        <outlet property="detailImageStackView" destination="CSn-zI-4nZ" id="MyX-6w-Um0"/>
+                        <outlet property="detailView" destination="Hcr-0b-y1P" id="VWM-T3-IYT"/>
                         <outlet property="imageScrollView" destination="Nv8-qR-YSH" id="f9t-0V-scJ"/>
                         <outlet property="imageStackView" destination="eKw-hX-eyt" id="p49-ZS-HFu"/>
                     </connections>

@@ -66,7 +66,8 @@ private extension ViewController {
     }
     let sideDish = viewModel.sideDish(at: indexPath)
     let service = RepositoryService<SideDishDetailDTO>(sessionManager: SessionManager.shared)
-    detailViewController.viewModel = SideDishDetailViewModel(repositoryService: service, model: sideDish)
+    detailViewController.viewModel = SideDishDetailViewModel(
+      repositoryService: service, model: sideDish)
     navigationController?.pushViewController(detailViewController, animated: true)
   }
 }

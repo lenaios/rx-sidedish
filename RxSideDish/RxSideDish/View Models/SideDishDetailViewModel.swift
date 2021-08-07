@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class SideDishDetailViewModel {
   
@@ -14,18 +15,18 @@ class SideDishDetailViewModel {
   
   private let disposeBag = DisposeBag()
   
+  let sideDish: BehaviorRelay<SideDish>
+  
   let subject = PublishSubject<SideDishDetail>()
   
   let thumbnail = PublishSubject<Data>()
   let detailImage = PublishSubject<Data>()
   
-  var sideDish: SideDish
-  
   init(
     repositoryService: RepositoryService<SideDishDetailDTO>,
     model: SideDish) {
     self.repositoryService = repositoryService
-    self.sideDish = model
+    self.sideDish = .init(value: model)
     self.load(model.detailHash)
   }
   

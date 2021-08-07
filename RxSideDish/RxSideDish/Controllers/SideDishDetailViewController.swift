@@ -7,12 +7,14 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 class SideDishDetailViewController: UIViewController {
   
   @IBOutlet weak var imageScrollView: UIScrollView!
   @IBOutlet weak var imageStackView: UIStackView!
-  @IBOutlet weak var contentStackView: UIStackView!
+  @IBOutlet weak var detailImageStackView: UIStackView!
+  @IBOutlet weak var detailView: SideDishDetailView!
   
   static var identifier: String {
     return String(describing: self)
@@ -25,6 +27,15 @@ class SideDishDetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    viewModel.sideDish
+      .subscribe(onNext: {
+        self.detailView.title.text = $0.title
+        self.detailView.subtitle.text = $0.description
+        self.detailView.sale.text = $0.sPrice
+        self.detailView.normal.text = $0.nPrice
+      })
+      .disposed(by: disposeBag)
+    
     viewModel.detailImage
       .observe(on: MainScheduler.instance)
       .compactMap {
@@ -33,7 +44,7 @@ class SideDishDetailViewController: UIViewController {
       .subscribe(onNext: { image in
         let ratio = image.size.height / image.size.width
         let imageView = self.makeImageView(with: image, ratio: ratio)
-        self.contentStackView.addArrangedSubview(imageView)
+        self.detailImageStackView.addArrangedSubview(imageView)
       })
       .disposed(by: disposeBag)
     
