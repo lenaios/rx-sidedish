@@ -11,7 +11,7 @@ import UIKit.UITableView
 
 final class SideDishViewModel: NSObject {
   
-  private let repositoryService: RepositoryService<SideDishes>
+  private let repositoryService: SideDishRepositoryService
   
   private var disposeBag = DisposeBag()
   
@@ -19,7 +19,7 @@ final class SideDishViewModel: NSObject {
   
   var sectionUpdated = PublishSubject<IndexSet>()
   
-  init(repositoryService: RepositoryService<SideDishes>) {
+  init(repositoryService: SideDishRepositoryService) {
     var sections:[SectionModel] = []
     Category.allCases.forEach { category in
       sections.append(SectionModel(header: "", category: category, items: []))
@@ -29,35 +29,35 @@ final class SideDishViewModel: NSObject {
   }
   
   func load() {
-    repositoryService.fetch(.main)
-      .subscribe { event in
-        if let items = event.element?.body {
-          let category = Category.main.rawValue
-          self.sections[category].items = items
-          self.sections[category].header = "모두가 좋아하는 메인요리"
-          self.sectionUpdated.onNext(IndexSet(integer: category))
-        }
-      }.disposed(by: disposeBag)
+    repositoryService.fetch(endpoint: .main)
+      .subscribe(onNext: { data in
+        let items = data.body
+        let category = Category.main.rawValue
+        self.sections[category].items = items
+        self.sections[category].header = "모두가 좋아하는 메인요리"
+        self.sectionUpdated.onNext(IndexSet(integer: category))
+      })
+      .disposed(by: disposeBag)
     
-    repositoryService.fetch(.soup)
-      .subscribe { event in
-        if let items = event.element?.body {
-          let category = Category.soup.rawValue
-          self.sections[category].items = items
-          self.sections[category].header = "정성이 담긴 뜨끈뜨끈 국물요리"
-          self.sectionUpdated.onNext(IndexSet(integer: category))
-        }
-      }.disposed(by: disposeBag)
+    repositoryService.fetch(endpoint: .soup)
+      .subscribe(onNext: { data in
+        let items = data.body
+        let category = Category.soup.rawValue
+        self.sections[category].items = items
+        self.sections[category].header = "정성이 담긴 뜨끈뜨끈 국물요리"
+        self.sectionUpdated.onNext(IndexSet(integer: category))
+      })
+      .disposed(by: disposeBag)
     
-    repositoryService.fetch(.side)
-      .subscribe { event in
-        if let items = event.element?.body {
-          let category = Category.side.rawValue
-          self.sections[category].items = items
-          self.sections[category].header = "식탁을 풍성하게 하는 밑반찬"
-          self.sectionUpdated.onNext(IndexSet(integer: category))
-        }
-      }.disposed(by: disposeBag)
+    repositoryService.fetch(endpoint: .side)
+      .subscribe(onNext: { data in
+        let items = data.body
+        let category = Category.side.rawValue
+        self.sections[category].items = items
+        self.sections[category].header = "식탁을 풍성하게 하는 밑반찬"
+        self.sectionUpdated.onNext(IndexSet(integer: category))
+      })
+      .disposed(by: disposeBag)
   }
   
   func header(at section: Int) -> String {
@@ -92,7 +92,7 @@ extension SideDishViewModel: UITableViewDataSource {
     let data = sections[indexPath.section].items[indexPath.row]
     cell.configure(data)
     // for image
-    repositoryService.fetch(data.image)
+    repositoryService.fetch(url: data.image)
       .observe(on: MainScheduler.instance)
       .subscribe(onNext: { data in
         if let image = UIImage(data: data) {

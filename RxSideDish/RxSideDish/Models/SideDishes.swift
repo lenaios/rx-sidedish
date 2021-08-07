@@ -24,7 +24,7 @@ struct SideDish: Decodable {
   let badge: [String]?
 }
 
-struct SideDishDetailDTO: Decodable {
+struct SideDishDetailData: Decodable {
   let hash: String
   let data: SideDishDetail
 }

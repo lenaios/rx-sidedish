@@ -11,7 +11,7 @@ import RxCocoa
 
 class SideDishDetailViewModel {
   
-  private let repositoryService: RepositoryService<SideDishDetailDTO>
+  private let repositoryService: SideDishDetailRepositoryService
   
   private let disposeBag = DisposeBag()
   
@@ -23,7 +23,7 @@ class SideDishDetailViewModel {
   let detailImage = PublishSubject<Data>()
   
   init(
-    repositoryService: RepositoryService<SideDishDetailDTO>,
+    repositoryService: SideDishDetailRepositoryService,
     model: SideDish) {
     self.repositoryService = repositoryService
     self.sideDish = .init(value: model)
@@ -31,7 +31,7 @@ class SideDishDetailViewModel {
   }
   
   private func load(_ id: String) {
-    repositoryService.fetch(.detail(id))
+    repositoryService.fetch(endpoint: .detail(id))
       .map { $0.data }
       .subscribe(onNext: {
         self.subject.onNext($0)
@@ -44,7 +44,7 @@ class SideDishDetailViewModel {
   func fetch(images: [String], subsriber: PublishSubject<Data>) {
     var iterator = images.makeIterator()
     while let image = iterator.next() {
-      self.repositoryService.fetch(image)
+      self.repositoryService.fetch(url: image)
         .subscribe(subsriber)
         .disposed(by: self.disposeBag)
     }

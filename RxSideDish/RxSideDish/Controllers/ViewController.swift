@@ -14,8 +14,8 @@ class ViewController: UIViewController {
   
   private let disposeBag = DisposeBag()
   
-  private let repositoryService: RepositoryService<SideDishes>
-    = RepositoryService(sessionManager: SessionManager.shared)
+  private let repositoryService: SideDishRepositoryService
+    = SideDishRepositoryService(sessionManager: SessionManager.shared)
   
   private lazy var viewModel = SideDishViewModel(repositoryService: repositoryService)
   
@@ -65,7 +65,7 @@ private extension ViewController {
       return
     }
     let sideDish = viewModel.sideDish(at: indexPath)
-    let service = RepositoryService<SideDishDetailDTO>(sessionManager: SessionManager.shared)
+    let service = SideDishDetailRepositoryService(sessionManager: SessionManager.shared)
     detailViewController.viewModel = SideDishDetailViewModel(
       repositoryService: service, model: sideDish)
     navigationController?.pushViewController(detailViewController, animated: true)

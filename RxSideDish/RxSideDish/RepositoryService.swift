@@ -8,41 +8,38 @@
 import Foundation
 import RxSwift
 
-protocol Service where Output: Decodable {
+protocol RepositoryServiceable {
   
   associatedtype Output
   
   var sessionManager: SessionManagable { get }
   
-  func fetch(_ path: Endpoint.Path) -> Observable<Output>
+  func fetch(endpoint: Endpoint.Path) -> Observable<Output>
+  func fetch(url: String) -> Observable<Data>
 }
 
 enum NetworkError: Error {
   case invalidURL
 }
 
-class RepositoryService<T: Decodable>: Service {
+struct SideDishRepositoryService: RepositoryServiceable {
   
-  typealias Output = T
+  typealias Output = SideDishes
   
   let sessionManager: SessionManagable
-  
-  init(sessionManager: SessionManagable) {
-    self.sessionManager = sessionManager
-  }
-  
-  func fetch(_ url: String) -> Observable<Data> {
-    guard let url = URL(string: url) else {
-      return Observable.error(NetworkError.invalidURL)
-    }
-    return sessionManager.request(with: url)
-  }
 }
 
-extension Service {
+struct SideDishDetailRepositoryService: RepositoryServiceable {
   
-  func fetch(_ path: Endpoint.Path) -> Observable<Output> {
-    let url = Endpoint(path: path).url
+  typealias Output = SideDishDetailData
+  
+  let sessionManager: SessionManagable
+}
+
+extension RepositoryServiceable where Output: Decodable {
+  
+  func fetch(endpoint: Endpoint.Path) -> Observable<Output> {
+    let url = Endpoint(path: endpoint).url
     let request = URLRequest(url: url)
     return
       self.sessionManager.request(with: request)
@@ -51,5 +48,12 @@ extension Service {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return try? decoder.decode(Output.self, from: data)
       }
+  }
+  
+  func fetch(url: String) -> Observable<Data> {
+    guard let url = URL(string: url) else {
+      return Observable.error(NetworkError.invalidURL)
+    }
+    return sessionManager.request(with: url)
   }
 }
