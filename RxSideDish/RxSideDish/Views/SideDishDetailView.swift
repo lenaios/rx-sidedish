@@ -11,7 +11,6 @@ class SideDishDetailView: UIView {
   
   private let stackView: UIStackView = {
     let stackView = UIStackView()
-    stackView.spacing = 10
     stackView.alignment = .fill
     stackView.distribution = .fillEqually
     stackView.axis = .vertical
@@ -27,6 +26,8 @@ class SideDishDetailView: UIView {
   
   let subtitle: UILabel = {
     let label = UILabel()
+    label.textColor = .systemGray
+    label.font = .systemFont(ofSize: 14)
     label.numberOfLines = 2
     return label
   }()

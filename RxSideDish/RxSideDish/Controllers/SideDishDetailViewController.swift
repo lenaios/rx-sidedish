@@ -27,12 +27,33 @@ class SideDishDetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    bindUI()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.navigationBar.isHidden = false
+  }
+  
+  func bindUI() {
     viewModel.sideDish
       .subscribe(onNext: {
         self.detailView.title.text = $0.title
         self.detailView.subtitle.text = $0.description
         self.detailView.sale.text = $0.sPrice
         self.detailView.normal.text = $0.nPrice
+        self.title = $0.title
+      })
+      .disposed(by: disposeBag)
+    
+    viewModel.thumbnail
+      .observe(on: MainScheduler.instance)
+      .compactMap {
+        return UIImage(data: $0)
+      }
+      .subscribe(onNext: {
+        let imageView = self.makeImageView(with: $0, ratio: 0.75)
+        self.imageStackView.addArrangedSubview(imageView)
       })
       .disposed(by: disposeBag)
     
@@ -47,22 +68,6 @@ class SideDishDetailViewController: UIViewController {
         self.detailImageStackView.addArrangedSubview(imageView)
       })
       .disposed(by: disposeBag)
-    
-    viewModel.thumbnail
-      .observe(on: MainScheduler.instance)
-      .compactMap {
-        return UIImage(data: $0)
-      }
-      .subscribe(onNext: {
-        let imageView = self.makeImageView(with: $0, ratio: 0.75)
-        self.imageStackView.addArrangedSubview(imageView)
-      })
-      .disposed(by: disposeBag)
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    navigationController?.navigationBar.isHidden = false
   }
   
   private func makeImageView(with image: UIImage, ratio: CGFloat = 0) -> UIImageView {
