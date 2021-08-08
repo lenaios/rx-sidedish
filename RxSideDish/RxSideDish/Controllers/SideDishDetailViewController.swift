@@ -17,7 +17,7 @@ class SideDishDetailViewController: UIViewController {
   @IBOutlet weak var detailView: SideDishDetailView!
   
   static var identifier: String {
-    return String(describing: self)
+    String(describing: self)
   }
   
   private let disposeBag = DisposeBag()
@@ -35,7 +35,7 @@ class SideDishDetailViewController: UIViewController {
     navigationController?.navigationBar.isHidden = false
   }
   
-  func bindUI() {
+  private func bindUI() {
     viewModel.sideDish
       .subscribe(onNext: {
         self.detailView.title.text = $0.title
@@ -48,9 +48,7 @@ class SideDishDetailViewController: UIViewController {
     
     viewModel.thumbnail
       .observe(on: MainScheduler.instance)
-      .compactMap {
-        return UIImage(data: $0)
-      }
+      .compactMap { UIImage(data: $0) }
       .subscribe(onNext: {
         let imageView = self.makeImageView(with: $0, ratio: 0.75)
         self.imageStackView.addArrangedSubview(imageView)
@@ -59,9 +57,7 @@ class SideDishDetailViewController: UIViewController {
     
     viewModel.detailImage
       .observe(on: MainScheduler.instance)
-      .compactMap {
-        return UIImage(data: $0)
-      }
+      .compactMap { UIImage(data: $0) }
       .subscribe(onNext: { image in
         let ratio = image.size.height / image.size.width
         let imageView = self.makeImageView(with: image, ratio: ratio)

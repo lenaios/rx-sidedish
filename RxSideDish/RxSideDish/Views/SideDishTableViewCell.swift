@@ -17,7 +17,7 @@ class SideDishTableViewCell: UITableViewCell {
   @IBOutlet weak var badgeStackView: UIStackView!
   
   static var identifier: String {
-    return String(describing: self)
+    String(describing: self)
   }
   
   func configure(_ data: SideDish) {

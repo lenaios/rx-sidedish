@@ -61,7 +61,8 @@ private extension ViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     guard
       let detailViewController = storyboard.instantiateViewController(
-        withIdentifier: SideDishDetailViewController.identifier) as? SideDishDetailViewController else {
+        withIdentifier: SideDishDetailViewController.identifier) as? SideDishDetailViewController
+    else {
       return
     }
     let sideDish = viewModel.sideDish(at: indexPath)
@@ -75,13 +76,15 @@ private extension ViewController {
 extension ViewController: UITableViewDelegate {
   func tableView(
     _ tableView: UITableView,
-    heightForHeaderInSection section: Int) -> CGFloat {
-    return 40
+    heightForHeaderInSection section: Int
+  ) -> CGFloat {
+    40
   }
   
   func tableView(
     _ tableView: UITableView,
-    viewForHeaderInSection section: Int) -> UIView? {
+    viewForHeaderInSection section: Int
+  ) -> UIView? {
     let header = SideDishTableViewHeader()
     let title = viewModel.header(at: section)
     header.configure(title: title)
