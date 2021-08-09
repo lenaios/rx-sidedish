@@ -21,6 +21,7 @@
 		D03DDC6026B1BC0F0096F756 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03DDC5F26B1BC0F0096F756 /* Endpoint.swift */; };
 		D03DDC6226B1C4F40096F756 /* RepositoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03DDC6126B1C4F40096F756 /* RepositoryService.swift */; };
 		D0453C8F26BE512C0094B0E4 /* SideDishDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0453C8E26BE512C0094B0E4 /* SideDishDetailView.swift */; };
+		D0453C9126BFFFC20094B0E4 /* ImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0453C9026BFFFC20094B0E4 /* ImageView+Extension.swift */; };
 		D0B2251626B3D31D009D67E9 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2251526B3D31D009D67E9 /* SessionManager.swift */; };
 		D0B2251826B56E39009D67E9 /* SideDishes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2251726B56E39009D67E9 /* SideDishes.swift */; };
 		D0B2251A26B57346009D67E9 /* SideDishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2251926B57346009D67E9 /* SideDishViewModel.swift */; };
@@ -68,6 +69,7 @@
 		D03DDC5F26B1BC0F0096F756 /* Endpoint.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D03DDC6126B1C4F40096F756 /* RepositoryService.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RepositoryService.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D0453C8E26BE512C0094B0E4 /* SideDishDetailView.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SideDishDetailView.swift; sourceTree = "<group>"; tabWidth = 2; };
+		D0453C9026BFFFC20094B0E4 /* ImageView+Extension.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = "ImageView+Extension.swift"; sourceTree = "<group>"; tabWidth = 2; };
 		D0B2251526B3D31D009D67E9 /* SessionManager.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D0B2251726B56E39009D67E9 /* SideDishes.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SideDishes.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D0B2251926B57346009D67E9 /* SideDishViewModel.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SideDishViewModel.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -136,6 +138,7 @@
 				D0453C8826BA6A8B0094B0E4 /* View Models */,
 				D0453C8A26BA6ACB0094B0E4 /* Views */,
 				D03DDC3226B1918C0096F756 /* Info.plist */,
+				D0453C9026BFFFC20094B0E4 /* ImageView+Extension.swift */,
 				D03DDC5F26B1BC0F0096F756 /* Endpoint.swift */,
 				D03DDC6126B1C4F40096F756 /* RepositoryService.swift */,
 				D0B2251526B3D31D009D67E9 /* SessionManager.swift */,
@@ -362,6 +365,7 @@
 				D0B2252726B90D94009D67E9 /* BadgeLabel.swift in Sources */,
 				D03DDC2526B191890096F756 /* AppDelegate.swift in Sources */,
 				D0B2252226B848FB009D67E9 /* SideDishTableViewCell.swift in Sources */,
+				D0453C9126BFFFC20094B0E4 /* ImageView+Extension.swift in Sources */,
 				D03DDC6026B1BC0F0096F756 /* Endpoint.swift in Sources */,
 				D03DDC2726B191890096F756 /* SceneDelegate.swift in Sources */,
 				D0B2251826B56E39009D67E9 /* SideDishes.swift in Sources */,

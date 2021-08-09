@@ -75,15 +75,6 @@ class SideDishDetailViewController: UIViewController {
   }
 }
 
-extension UIImageView {
-  func configureSize(ratio: CGFloat = 1) {
-    contentMode = .scaleAspectFill
-    translatesAutoresizingMaskIntoConstraints = false
-    self.heightAnchor.constraint(
-      equalTo: self.widthAnchor, multiplier: ratio).isActive = true
-  }
-}
-
 extension UIImage {
   var ratio: CGFloat {
     size.height / size.width

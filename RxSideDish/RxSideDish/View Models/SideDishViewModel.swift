@@ -78,14 +78,7 @@ extension SideDishViewModel: UITableViewDataSource {
     }
     let data = sections[indexPath.section].items[indexPath.row]
     cell.configure(data)
-    // for image
-    repositoryService.fetch(url: data.image)
-      .observe(on: MainScheduler.instance)
-      .subscribe(onNext: { data in
-        if let image = UIImage(data: data) {
-          cell.confiugre(image)
-        }
-      }).disposed(by: disposeBag)
+    cell.thumbnail.setupImage(with: data.image)
     return cell
   }
 }

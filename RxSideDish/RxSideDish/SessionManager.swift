@@ -11,7 +11,6 @@ import RxCocoa
 
 protocol SessionManagable {
   func request(with request: URLRequest) -> Observable<Data>
-  func request(with url: URL) -> Observable<Data>
 }
 
 class SessionManager: SessionManagable {
@@ -20,17 +19,6 @@ class SessionManager: SessionManagable {
   
   let session = URLSession(configuration: .default)
 
-  func request(with url: URL) -> Observable<Data> {
-    return Observable.create { observer in
-      self.session.dataTask(with: url) { data, _, error in
-        guard let data = data else {
-          return observer.onError(error!)
-        }
-        observer.onNext(data)
-      }.resume()
-      return Disposables.create()
-    }
-  }
 }
 
 extension SessionManager {
