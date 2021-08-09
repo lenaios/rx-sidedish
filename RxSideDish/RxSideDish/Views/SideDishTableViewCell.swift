@@ -42,10 +42,6 @@ class SideDishTableViewCell: UITableViewCell {
     }
   }
   
-  func confiugre(_ image: UIImage) {
-    self.thumbnail.image = image
-  }
-  
   override func prepareForReuse() {
     super.prepareForReuse()
     normal.text = ""

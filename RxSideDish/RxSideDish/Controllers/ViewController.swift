@@ -14,7 +14,7 @@ class ViewController: UIViewController {
   
   private let disposeBag = DisposeBag()
   
-  private lazy var viewModel = SideDishViewModel()
+  private var viewModel = SideDishViewModel()
   
   override func viewDidLoad() {
     super.viewDidLoad()

@@ -51,23 +51,59 @@ class SideDishDetailViewController: UIViewController {
         self.title = $0.title
       })
       .disposed(by: disposeBag)
+    
+    viewModel.sideDishDetail
+      .map { $0.point }
+      .bind(to: self.detailView.points.rx.text)
+      .disposed(by: disposeBag)
+    
+    viewModel.sideDishDetail
+      .map { $0.deliveryInfo }
+      .bind(to: self.detailView.deliveryInfo.rx.text)
+      .disposed(by: disposeBag)
       
     viewModel.sideDishDetail
+      .map { $0.deliveryFee }
+      .bind(to: self.detailView.deliveryFee.rx.text)
+      .disposed(by: disposeBag)
+    
+    viewModel.sideDishDetail
       .observe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+      .map { $0.thumbImages }
       .subscribe(onNext: {
-        let thumbnail = $0.thumbImages.compactMap(self.transform)
-        let detailImages = $0.detailSection.compactMap(self.transform)
-        DispatchQueue.main.async { [weak self] in
-          guard let self = self else { return }
-          thumbnail.forEach { image in
+        $0.forEach { string in
+          let url = URL(string: string)!
+          do {
+            let data = try Data(contentsOf: url)
+            DispatchQueue.main.async {
+              let image = UIImage(data: data)!
               let imageView = UIImageView(image: image)
               imageView.configureSize(ratio: 0.75)
               self.imageStackView.addArrangedSubview(imageView)
             }
-          detailImages.forEach { image in
-            let imageView = UIImageView(image: image)
-            imageView.configureSize(ratio: image.ratio)
-            self.detailImageStackView.addArrangedSubview(imageView)
+          } catch {
+            
+          }
+        }
+      })
+      .disposed(by: disposeBag)
+    
+    viewModel.sideDishDetail
+      .observe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+      .map { $0.detailSection }
+      .subscribe(onNext: {
+        $0.forEach { string in
+          let url = URL(string: string)!
+          do {
+            let data = try Data(contentsOf: url)
+            DispatchQueue.main.async {
+              let image = UIImage(data: data)!
+              let imageView = UIImageView(image: image)
+              imageView.configureSize(ratio: image.ratio)
+              self.detailImageStackView.addArrangedSubview(imageView)
+            }
+          } catch {
+            
           }
         }
       })

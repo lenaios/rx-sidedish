@@ -44,11 +44,15 @@ class SideDishDetailView: UIView {
   
   let points: UILabel = {
     let label = UILabel()
+    label.font = .systemFont(ofSize: 14)
     return label
   }()
   
   let deliveryInfo: UILabel = {
     let label = UILabel()
+    label.textColor = .systemGray
+    label.font = .systemFont(ofSize: 14)
+    label.numberOfLines = 3
     return label
   }()
   
@@ -76,7 +80,7 @@ class SideDishDetailView: UIView {
   
   private func setupSubviews() {
     addSubview(stackView)
-    [title, subtitle, sale].forEach {
+    [title, subtitle, sale, points, deliveryInfo, deliveryFee].forEach {
       stackView.addArrangedSubview($0)
     }
   }

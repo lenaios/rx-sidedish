@@ -152,15 +152,15 @@
                                             <constraint firstItem="eKw-hX-eyt" firstAttribute="leading" secondItem="Nv8-qR-YSH" secondAttribute="leading" id="nhs-EY-UQK"/>
                                         </constraints>
                                     </scrollView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hcr-0b-y1P" userLabel="Detail View" customClass="SideDishDetailView" customModule="RxSideDish" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="310.5" width="414" height="120"/>
+                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="240" translatesAutoresizingMaskIntoConstraints="NO" id="Hcr-0b-y1P" userLabel="Detail View" customClass="SideDishDetailView" customModule="RxSideDish" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="310.5" width="414" height="300"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="5fO-tN-ujP"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="5fO-tN-ujP"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="CSn-zI-4nZ">
-                                        <rect key="frame" x="0.0" y="430.5" width="414" height="465.5"/>
+                                        <rect key="frame" x="0.0" y="610.5" width="414" height="285.5"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
