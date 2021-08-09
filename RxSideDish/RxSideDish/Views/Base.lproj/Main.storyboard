@@ -159,7 +159,7 @@
                                             <constraint firstAttribute="height" constant="120" id="5fO-tN-ujP"/>
                                         </constraints>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="CSn-zI-4nZ">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="CSn-zI-4nZ">
                                         <rect key="frame" x="0.0" y="430.5" width="414" height="465.5"/>
                                     </stackView>
                                 </subviews>

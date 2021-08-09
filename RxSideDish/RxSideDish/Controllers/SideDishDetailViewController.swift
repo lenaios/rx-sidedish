@@ -32,7 +32,7 @@ class SideDishDetailViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    navigationController?.navigationBar.isHidden = false
+    navigationController?.isNavigationBarHidden = false
   }
   
   private func bindUI() {
@@ -45,33 +45,35 @@ class SideDishDetailViewController: UIViewController {
         self.title = $0.title
       })
       .disposed(by: disposeBag)
-    
+      
     viewModel.thumbnail
       .observe(on: MainScheduler.instance)
       .compactMap { UIImage(data: $0) }
-      .subscribe(onNext: {
-        let imageView = self.makeImageView(with: $0, ratio: 0.75)
+      .subscribe(onNext: { image in
+        let imageView = UIImageView(image: image)
+        imageView.configureSize(ratio: 0.75)
         self.imageStackView.addArrangedSubview(imageView)
       })
       .disposed(by: disposeBag)
-    
+
     viewModel.detailImage
       .observe(on: MainScheduler.instance)
       .compactMap { UIImage(data: $0) }
       .subscribe(onNext: { image in
+        let imageView = UIImageView(image: image)
         let ratio = image.size.height / image.size.width
-        let imageView = self.makeImageView(with: image, ratio: ratio)
+        imageView.configureSize(ratio: ratio)
         self.detailImageStackView.addArrangedSubview(imageView)
       })
       .disposed(by: disposeBag)
   }
-  
-  private func makeImageView(with image: UIImage, ratio: CGFloat = 0) -> UIImageView {
-    let imageView = UIImageView(image: image)
-    imageView.contentMode = .scaleAspectFill
-    imageView.translatesAutoresizingMaskIntoConstraints = false
-    imageView.heightAnchor.constraint(
-      equalTo: imageView.widthAnchor, multiplier: ratio).isActive = true
-    return imageView
+}
+
+extension UIImageView {
+  func configureSize(ratio: CGFloat = 1) {
+    contentMode = .scaleAspectFill
+    translatesAutoresizingMaskIntoConstraints = false
+    self.heightAnchor.constraint(
+      equalTo: self.widthAnchor, multiplier: ratio).isActive = true
   }
 }

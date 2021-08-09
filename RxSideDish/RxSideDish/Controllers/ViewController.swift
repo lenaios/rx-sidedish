@@ -14,10 +14,7 @@ class ViewController: UIViewController {
   
   private let disposeBag = DisposeBag()
   
-  private let repositoryService: SideDishRepositoryService
-    = SideDishRepositoryService(sessionManager: SessionManager.shared)
-  
-  private lazy var viewModel = SideDishViewModel(repositoryService: repositoryService)
+  private lazy var viewModel = SideDishViewModel()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -37,7 +34,7 @@ class ViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    navigationController?.navigationBar.isHidden = true
+    navigationController?.isNavigationBarHidden = true
   }
   
   private func bind() {

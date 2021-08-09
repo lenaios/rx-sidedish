@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum Category: Int, CaseIterable {
-  case main = 0
-  case soup
-  case side
+enum Category: String, CaseIterable {
+  case main = "모두가 좋아하는 메인요리"
+  case soup = "정성이 담긴 뜨끈뜨끈 국물요리"
+  case side = "식탁을 풍성하게 하는 밑반찬"
 }
 
 struct SectionModel {

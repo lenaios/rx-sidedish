@@ -20,6 +20,13 @@ class SideDishTableViewCell: UITableViewCell {
     String(describing: self)
   }
   
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    thumbnail.translatesAutoresizingMaskIntoConstraints = false
+    thumbnail.layer.cornerRadius = 20
+    thumbnail.clipsToBounds = true
+  }
+  
   func configure(_ data: SideDish) {
     title.text = data.title
     subtitle.text = data.description

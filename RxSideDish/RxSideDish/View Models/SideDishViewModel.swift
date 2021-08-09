@@ -19,74 +19,61 @@ final class SideDishViewModel: NSObject {
   
   var sectionUpdated = PublishSubject<IndexSet>()
   
-  init(repositoryService: SideDishRepositoryService) {
-    var sections:[SectionModel] = []
+  init(
+    repositoryService: SideDishRepositoryService = .init(sessionManager: SessionManager.shared)) {
+    self.repositoryService = repositoryService
+    var sections: [SectionModel] = []
     Category.allCases.forEach { category in
-      sections.append(SectionModel(header: "", category: category, items: []))
+      sections.append(.init(header: "", category: category, items: []))
     }
     self.sections = sections
-    self.repositoryService = repositoryService
   }
   
   func load() {
-    repositoryService.fetch(endpoint: .main)
-      .subscribe(onNext: { data in
-        let items = data.body
-        let category = Category.main.rawValue
-        self.sections[category].items = items
-        self.sections[category].header = "모두가 좋아하는 메인요리"
-        self.sectionUpdated.onNext(IndexSet(integer: category))
-      })
-      .disposed(by: disposeBag)
-    
-    repositoryService.fetch(endpoint: .soup)
-      .subscribe(onNext: { data in
-        let items = data.body
-        let category = Category.soup.rawValue
-        self.sections[category].items = items
-        self.sections[category].header = "정성이 담긴 뜨끈뜨끈 국물요리"
-        self.sectionUpdated.onNext(IndexSet(integer: category))
-      })
-      .disposed(by: disposeBag)
-    
-    repositoryService.fetch(endpoint: .side)
-      .subscribe(onNext: { data in
-        let items = data.body
-        let category = Category.side.rawValue
-        self.sections[category].items = items
-        self.sections[category].header = "식탁을 풍성하게 하는 밑반찬"
-        self.sectionUpdated.onNext(IndexSet(integer: category))
-      })
-      .disposed(by: disposeBag)
+    let endpoints: [Endpoint.Path] = [.main, .soup, .side]
+    endpoints.enumerated().forEach { (index, path) in
+      repositoryService.fetch(endpoint: path)
+        .subscribe(onNext: { [weak self] data in
+          guard let self = self else { return }
+          let items = data.body
+          self.sections[index].header = self.sections[index].category.rawValue
+          self.sections[index].items = items
+          self.sectionUpdated.onNext(IndexSet(integer: index))
+        })
+        .disposed(by: disposeBag)
+    }
   }
   
   func header(at section: Int) -> String {
-    return sections[section].header
+    sections[section].header
   }
     
   func sideDish(at index: IndexPath) -> SideDish {
-    return sections[index.section].items[index.row]
+    sections[index.section].items[index.row]
   }
 }
 
 extension SideDishViewModel: UITableViewDataSource {
   func numberOfSections(in tableView: UITableView) -> Int {
-    return 3
+    3
   }
   
   func tableView(
     _ tableView: UITableView,
-    numberOfRowsInSection section: Int) -> Int {
-    return sections[section].items.count
+    numberOfRowsInSection section: Int
+  ) -> Int {
+    sections[section].items.count
   }
   
   func tableView(
     _ tableView: UITableView,
-    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    cellForRowAt indexPath: IndexPath
+  ) -> UITableViewCell {
     guard
       let cell = tableView.dequeueReusableCell(
         withIdentifier: SideDishTableViewCell.identifier,
-        for: indexPath) as? SideDishTableViewCell else {
+        for: indexPath) as? SideDishTableViewCell
+    else {
       return SideDishTableViewCell()
     }
     let data = sections[indexPath.section].items[indexPath.row]
