@@ -35,6 +35,12 @@ class SideDishDetailViewController: UIViewController {
     navigationController?.isNavigationBarHidden = false
   }
   
+  private let transform: (String) -> UIImage? = { string in
+    let url = URL(string: string)!
+    guard let data = try? Data(contentsOf: url) else { return nil }
+    return UIImage(data: data)
+  }
+  
   private func bindUI() {
     viewModel.sideDish
       .subscribe(onNext: {
@@ -46,24 +52,24 @@ class SideDishDetailViewController: UIViewController {
       })
       .disposed(by: disposeBag)
       
-    viewModel.thumbnail
-      .observe(on: MainScheduler.instance)
-      .compactMap { UIImage(data: $0) }
-      .subscribe(onNext: { image in
-        let imageView = UIImageView(image: image)
-        imageView.configureSize(ratio: 0.75)
-        self.imageStackView.addArrangedSubview(imageView)
-      })
-      .disposed(by: disposeBag)
-
-    viewModel.detailImage
-      .observe(on: MainScheduler.instance)
-      .compactMap { UIImage(data: $0) }
-      .subscribe(onNext: { image in
-        let imageView = UIImageView(image: image)
-        let ratio = image.size.height / image.size.width
-        imageView.configureSize(ratio: ratio)
-        self.detailImageStackView.addArrangedSubview(imageView)
+    viewModel.sideDishDetail
+      .observe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+      .subscribe(onNext: {
+        let thumbnail = $0.thumbImages.compactMap(self.transform)
+        let detailImages = $0.detailSection.compactMap(self.transform)
+        DispatchQueue.main.async { [weak self] in
+          guard let self = self else { return }
+          thumbnail.forEach { image in
+              let imageView = UIImageView(image: image)
+              imageView.configureSize(ratio: 0.75)
+              self.imageStackView.addArrangedSubview(imageView)
+            }
+          detailImages.forEach { image in
+            let imageView = UIImageView(image: image)
+            imageView.configureSize(ratio: image.ratio)
+            self.detailImageStackView.addArrangedSubview(imageView)
+          }
+        }
       })
       .disposed(by: disposeBag)
   }
@@ -75,5 +81,11 @@ extension UIImageView {
     translatesAutoresizingMaskIntoConstraints = false
     self.heightAnchor.constraint(
       equalTo: self.widthAnchor, multiplier: ratio).isActive = true
+  }
+}
+
+extension UIImage {
+  var ratio: CGFloat {
+    size.height / size.width
   }
 }

@@ -15,7 +15,6 @@ protocol RepositoryServiceable {
   var sessionManager: SessionManagable { get }
   
   func fetch(endpoint: Endpoint.Path) -> Observable<Output>
-  func fetch(url: String) -> Observable<Data>
 }
 
 enum NetworkError: Error {
@@ -48,12 +47,5 @@ extension RepositoryServiceable where Output: Decodable {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return try? decoder.decode(Output.self, from: data)
       }
-  }
-  
-  func fetch(url: String) -> Observable<Data> {
-    guard let url = URL(string: url) else {
-      return Observable.error(NetworkError.invalidURL)
-    }
-    return sessionManager.request(with: url)
   }
 }
