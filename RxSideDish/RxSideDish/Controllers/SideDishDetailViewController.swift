@@ -66,47 +66,25 @@ class SideDishDetailViewController: UIViewController {
       .map { $0.deliveryFee }
       .bind(to: self.detailView.deliveryFee.rx.text)
       .disposed(by: disposeBag)
-    
-    viewModel.sideDishDetail
+      
+    viewModel.image
       .observe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
-      .map { $0.thumbImages }
-      .subscribe(onNext: {
-        $0.forEach { string in
-          let url = URL(string: string)!
-          do {
-            let data = try Data(contentsOf: url)
-            DispatchQueue.main.async {
-              let image = UIImage(data: data)!
-              let imageView = UIImageView(image: image)
-              imageView.configureSize(ratio: 0.75)
-              self.imageStackView.addArrangedSubview(imageView)
-            }
-          } catch {
-            
-          }
-        }
-      })
+      .compactMap(self.transform)
+      .observe(on: MainScheduler.instance)
+      .map { UIImageView(image: $0) }
+      .do { $0.configureSize(ratio: 0.75) }
+      .do { self.imageStackView.addArrangedSubview($0) }
+      .subscribe(onNext: { _ in })
       .disposed(by: disposeBag)
     
-    viewModel.sideDishDetail
+    viewModel.detailImage
       .observe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
-      .map { $0.detailSection }
-      .subscribe(onNext: {
-        $0.forEach { string in
-          let url = URL(string: string)!
-          do {
-            let data = try Data(contentsOf: url)
-            DispatchQueue.main.async {
-              let image = UIImage(data: data)!
-              let imageView = UIImageView(image: image)
-              imageView.configureSize(ratio: image.ratio)
-              self.detailImageStackView.addArrangedSubview(imageView)
-            }
-          } catch {
-            
-          }
-        }
-      })
+      .compactMap(self.transform)
+      .observe(on: MainScheduler.instance)
+      .map { UIImageView(image: $0) }
+      .do { $0.configureSize(ratio: $0.image!.ratio) }
+      .do { self.detailImageStackView.addArrangedSubview($0) }
+      .subscribe(onNext: { _ in })
       .disposed(by: disposeBag)
   }
 }
