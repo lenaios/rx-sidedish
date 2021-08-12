@@ -40,11 +40,14 @@ class ViewController: UIViewController {
   private func bind() {
     tableView.rx.itemSelected
       .asDriver()
-      .drive { self.showDetail(for: $0) }
+      .drive { [weak self] in
+        guard let self = self else { return }
+        self.showDetail(for: $0) }
       .disposed(by: disposeBag)
 
     viewModel.sectionUpdated
-      .subscribe(onNext: { data in
+      .subscribe(onNext: { [weak self] data in
+        guard let self = self else { return }
         DispatchQueue.main.sync {
           self.tableView.reloadSections(data, with: .automatic)
         }

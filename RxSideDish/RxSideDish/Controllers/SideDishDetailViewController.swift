@@ -69,13 +69,11 @@ class SideDishDetailViewController: UIViewController {
       
     viewModel.sideDishDetail
       .observe(on: MainScheduler.instance)
-      .do { $0.thumbImages.map { (string) -> UIImageView in
+      .do { _ = $0.thumbImages.map { (string) -> Void in
         let imageView = UIImageView()
         imageView.setupImage(with: string)
         imageView.configureSize(ratio: 0.75)
-        return imageView
-      }.forEach {
-        self.imageStackView.addArrangedSubview($0)
+        self.imageStackView.addArrangedSubview(imageView)
       }}
       .subscribe(onNext: { _ in })
       .disposed(by: disposeBag)
@@ -110,7 +108,9 @@ class SideDishDetailViewController: UIViewController {
     viewModel.count
       .asDriver()
       .map { String($0) }
-      .drive { self.detailView.quantity.text = $0 }
+      .drive { [weak self] in
+        guard let self = self else { return }
+        self.detailView.quantity.text = $0 }
       .disposed(by: disposeBag)
   }
 }
