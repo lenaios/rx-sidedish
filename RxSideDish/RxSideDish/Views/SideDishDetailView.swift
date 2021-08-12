@@ -9,11 +9,20 @@ import UIKit
 
 class SideDishDetailView: UIView {
   
-  private let stackView: UIStackView = {
+  private let containerStackView: UIStackView = {
     let stackView = UIStackView()
     stackView.alignment = .fill
     stackView.distribution = .fillEqually
     stackView.axis = .vertical
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    return stackView
+  }()
+  
+  private let quantityCountStackView: UIStackView = {
+    let stackView = UIStackView()
+    stackView.alignment = .fill
+    stackView.distribution = .fillEqually
+    stackView.axis = .horizontal
     stackView.translatesAutoresizingMaskIntoConstraints = false
     return stackView
   }()
@@ -34,6 +43,8 @@ class SideDishDetailView: UIView {
   
   let normal: UILabel = {
     let label = UILabel()
+    label.textColor = .systemGray
+    label.font = .systemFont(ofSize: 14)
     return label
   }()
   
@@ -58,12 +69,40 @@ class SideDishDetailView: UIView {
   
   let deliveryFee: UILabel = {
     let label = UILabel()
+    label.numberOfLines = 2
+    label.font = .systemFont(ofSize: 14)
     return label
   }()
   
   let quantity: UILabel = {
     let label = UILabel()
+    label.font = .systemFont(ofSize: 14)
+    label.textAlignment = .center
     return label
+  }()
+  
+  let plus: UIButton = {
+    let button = UIButton()
+    button.setImage(UIImage(systemName: "plus"), for: .normal)
+    button.tintColor = .link
+    return button
+  }()
+  
+  let minus: UIButton = {
+    let button = UIButton()
+    button.setImage(UIImage(systemName: "minus"), for: .normal)
+    button.tintColor = .link
+    return button
+  }()
+  
+  let purchase: UIButton = {
+    let button = UIButton()
+    button.layer.cornerRadius = 10
+    button.backgroundColor = .link
+    button.setTitleColor(.white, for: .normal)
+    button.setTitle("구매하기", for: .normal)
+    button.translatesAutoresizingMaskIntoConstraints = false
+    return button
   }()
   
   override init(frame: CGRect) {
@@ -79,18 +118,80 @@ class SideDishDetailView: UIView {
   }
   
   private func setupSubviews() {
-    addSubview(stackView)
-    [title, subtitle, sale, points, deliveryInfo, deliveryFee].forEach {
-      stackView.addArrangedSubview($0)
+    addSubview(containerStackView)
+    
+    [UILabel(), minus, quantity, plus].forEach {
+      quantityCountStackView.addArrangedSubview($0)
+    }
+    
+    let titleStackView = makeVerticalStackView()
+    titleStackView.addArrangedSubview(title)
+    titleStackView.addArrangedSubview(subtitle)
+    
+    let pointsStackView = makeHorizontalStackView()
+    pointsStackView.addArrangedSubview(makeLabel(with: "적립금"))
+    pointsStackView.addArrangedSubview(points)
+    
+    let deliveryInfoStackView = makeHorizontalStackView()
+    deliveryInfoStackView.addArrangedSubview(makeLabel(with: "배송정보"))
+    deliveryInfoStackView.addArrangedSubview(deliveryInfo)
+    
+    let deliveryFeeStackView = makeHorizontalStackView()
+    deliveryFeeStackView.addArrangedSubview(makeLabel(with: "배송비"))
+    deliveryFeeStackView.addArrangedSubview(deliveryFee)
+    
+    let quantityCountContainer = makeHorizontalStackView()
+    quantityCountContainer.addArrangedSubview(makeLabel(with: ""))
+    quantityCountContainer.addArrangedSubview(quantityCountStackView)
+    
+    let PriceStackView = makeHorizontalStackView()
+    PriceStackView.addArrangedSubview(sale)
+    PriceStackView.addArrangedSubview(normal)
+    
+    [titleStackView, PriceStackView, pointsStackView, deliveryInfoStackView, deliveryFeeStackView, quantityCountContainer, purchase].forEach {
+      containerStackView.addArrangedSubview($0)
     }
   }
   
   private func setupConstraints() {
+    sale.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     NSLayoutConstraint.activate([
-      stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-      stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-      stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-      stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+      containerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+      containerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+      containerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+      containerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+      purchase.heightAnchor.constraint(equalToConstant: 55),
+      quantity.widthAnchor.constraint(greaterThanOrEqualToConstant: 20)
     ])
+  }
+}
+
+private extension SideDishDetailView {
+  func makeVerticalStackView() -> UIStackView {
+    let stackView = UIStackView()
+    stackView.alignment = .fill
+    stackView.distribution = .fillEqually
+    stackView.axis = .vertical
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    return stackView
+  }
+  
+  func makeHorizontalStackView() -> UIStackView {
+    let stackView = UIStackView()
+    stackView.alignment = .fill
+    stackView.distribution = .fill
+    stackView.axis = .horizontal
+    stackView.spacing = 10
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    return stackView
+  }
+  
+  func makeLabel(with text: String) -> UILabel {
+    let label = UILabel()
+    label.font = .systemFont(ofSize: 14)
+    label.text = text
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.widthAnchor.constraint(equalToConstant: 120).isActive = true
+    return label
   }
 }

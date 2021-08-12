@@ -18,8 +18,8 @@ class SideDishDetailViewModel {
   let sideDish: BehaviorRelay<SideDish>
   
   let sideDishDetail = PublishRelay<SideDishDetail>()
-  let image = PublishSubject<String>()
-  let detailImage = PublishSubject<String>()
+  
+  let count = BehaviorRelay<Int>(value: 1)
   
   init(
     repositoryService: SideDishDetailRepositoryService,
@@ -34,8 +34,6 @@ class SideDishDetailViewModel {
       .map { $0.data }
       .subscribe(onNext: {
         self.sideDishDetail.accept($0)
-        $0.thumbImages.forEach { self.image.onNext($0) }
-        $0.detailSection.forEach { self.detailImage.onNext($0) }
       })
       .disposed(by: disposeBag)
   }

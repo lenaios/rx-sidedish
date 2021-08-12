@@ -67,24 +67,50 @@ class SideDishDetailViewController: UIViewController {
       .bind(to: self.detailView.deliveryFee.rx.text)
       .disposed(by: disposeBag)
       
-    viewModel.image
-      .observe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
-      .compactMap(self.transform)
+    viewModel.sideDishDetail
       .observe(on: MainScheduler.instance)
-      .map { UIImageView(image: $0) }
-      .do { $0.configureSize(ratio: 0.75) }
-      .do { self.imageStackView.addArrangedSubview($0) }
+      .do { $0.thumbImages.map { (string) -> UIImageView in
+        let imageView = UIImageView()
+        imageView.setupImage(with: string)
+        imageView.configureSize(ratio: 0.75)
+        return imageView
+      }.forEach {
+        self.imageStackView.addArrangedSubview($0)
+      }}
       .subscribe(onNext: { _ in })
       .disposed(by: disposeBag)
     
-    viewModel.detailImage
+    viewModel.sideDishDetail
       .observe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
-      .compactMap(self.transform)
+      .map { $0.detailSection.compactMap(self.transform) }
       .observe(on: MainScheduler.instance)
-      .map { UIImageView(image: $0) }
-      .do { $0.configureSize(ratio: $0.image!.ratio) }
-      .do { self.detailImageStackView.addArrangedSubview($0) }
+      .do { $0.forEach {
+        let imageView = UIImageView(image: $0)
+        imageView.configureSize(ratio: $0.ratio)
+        self.detailImageStackView.addArrangedSubview(imageView)
+      }}
       .subscribe(onNext: { _ in })
+      .disposed(by: disposeBag)
+  
+    detailView.plus.rx.tap
+      .subscribe(onNext: { [weak self] in
+        guard let self = self else { return }
+        self.viewModel.count.accept(self.viewModel.count.value + 1)
+      })
+      .disposed(by: disposeBag)
+    
+    detailView.minus.rx.tap
+      .subscribe(onNext: { [weak self] in
+        guard let self = self else { return }
+        let count = self.viewModel.count.value
+        if count > 1 { self.viewModel.count.accept(count - 1) }
+      })
+      .disposed(by: disposeBag)
+    
+    viewModel.count
+      .asDriver()
+      .map { String($0) }
+      .drive { self.detailView.quantity.text = $0 }
       .disposed(by: disposeBag)
   }
 }

@@ -69,7 +69,7 @@
                                                             <rect key="frame" x="0.0" y="90" width="0.0" height="20"/>
                                                             <subviews>
                                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="5m4-m9-XEV" customClass="BadgeLabel" customModule="RxSideDish" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="30.5"/>
                                                                     <color key="backgroundColor" red="0.83137254901960778" green="0.77254901960784317" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -224,7 +224,7 @@
     </scenes>
     <designables>
         <designable name="5m4-m9-XEV">
-            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="51.5" height="30.5"/>
         </designable>
     </designables>
     <resources>
