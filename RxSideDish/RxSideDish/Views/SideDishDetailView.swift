@@ -84,24 +84,14 @@ class SideDishDetailView: UIView {
   let plus: UIButton = {
     let button = UIButton()
     button.setImage(UIImage(systemName: "plus"), for: .normal)
-    button.tintColor = .link
+    button.tintColor = .systemIndigo
     return button
   }()
   
   let minus: UIButton = {
     let button = UIButton()
     button.setImage(UIImage(systemName: "minus"), for: .normal)
-    button.tintColor = .link
-    return button
-  }()
-  
-  let purchase: UIButton = {
-    let button = UIButton()
-    button.layer.cornerRadius = 10
-    button.backgroundColor = .link
-    button.setTitleColor(.white, for: .normal)
-    button.setTitle("구매하기", for: .normal)
-    button.translatesAutoresizingMaskIntoConstraints = false
+    button.tintColor = .systemIndigo
     return button
   }()
   
@@ -141,14 +131,14 @@ class SideDishDetailView: UIView {
     deliveryFeeStackView.addArrangedSubview(deliveryFee)
     
     let quantityCountContainer = makeHorizontalStackView()
-    quantityCountContainer.addArrangedSubview(makeLabel(with: ""))
+    quantityCountContainer.addArrangedSubview(makeLabel(with: "가격"))
     quantityCountContainer.addArrangedSubview(quantityCountStackView)
     
     let PriceStackView = makeHorizontalStackView()
     PriceStackView.addArrangedSubview(sale)
     PriceStackView.addArrangedSubview(normal)
     
-    [titleStackView, PriceStackView, pointsStackView, deliveryInfoStackView, deliveryFeeStackView, quantityCountContainer, purchase].forEach {
+    [titleStackView, PriceStackView, pointsStackView, deliveryInfoStackView, deliveryFeeStackView, quantityCountContainer].forEach {
       containerStackView.addArrangedSubview($0)
     }
   }
@@ -156,12 +146,10 @@ class SideDishDetailView: UIView {
   private func setupConstraints() {
     sale.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     NSLayoutConstraint.activate([
-      containerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-      containerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+      containerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 15),
+      containerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
       containerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-      containerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-      purchase.heightAnchor.constraint(equalToConstant: 55),
-      quantity.widthAnchor.constraint(greaterThanOrEqualToConstant: 20)
+      containerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
     ])
   }
 }
@@ -191,7 +179,7 @@ private extension SideDishDetailView {
     label.font = .systemFont(ofSize: 14)
     label.text = text
     label.translatesAutoresizingMaskIntoConstraints = false
-    label.widthAnchor.constraint(equalToConstant: 120).isActive = true
+    label.widthAnchor.constraint(equalToConstant: 70).isActive = true
     return label
   }
 }
