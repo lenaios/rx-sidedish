@@ -17,7 +17,8 @@ class BadgeLabel: UILabel {
   
   func configure(_ text: String) {
     self.text = text
-    self.backgroundColor = #colorLiteral(red: 0.831372549, green: 0.7725490196, blue: 0.9764705882, alpha: 1)
+    self.backgroundColor = .systemIndigo
+    self.textColor = .white
     self.font = .systemFont(ofSize: 14)
   }
   

@@ -131,7 +131,7 @@ class SideDishDetailView: UIView {
     deliveryFeeStackView.addArrangedSubview(deliveryFee)
     
     let quantityCountContainer = makeHorizontalStackView()
-    quantityCountContainer.addArrangedSubview(makeLabel(with: "가격"))
+    quantityCountContainer.addArrangedSubview(makeLabel(with: "수량"))
     quantityCountContainer.addArrangedSubview(quantityCountStackView)
     
     let PriceStackView = makeHorizontalStackView()
