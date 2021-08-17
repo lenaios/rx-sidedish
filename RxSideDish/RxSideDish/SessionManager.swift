@@ -9,19 +9,16 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol SessionManagable {
+protocol SessionManagerType {
   func request(with request: URLRequest) -> Observable<Data>
 }
 
-class SessionManager: SessionManagable {
+class SessionManager: SessionManagerType {
   
   static let shared = SessionManager()
   
   let session = URLSession(configuration: .default)
-
-}
-
-extension SessionManager {
+  
   func request(with request: URLRequest) -> Observable<Data> {
     return session.rx.data(request: request)
   }

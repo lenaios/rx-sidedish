@@ -8,11 +8,11 @@
 import Foundation
 import RxSwift
 
-protocol RepositoryServiceable {
+protocol RepositoryServiceType {
   
   associatedtype Output
   
-  var sessionManager: SessionManagable { get }
+  var sessionManager: SessionManagerType { get }
   
   func fetch(endpoint: Endpoint.Path) -> Observable<Output>
 }
@@ -21,22 +21,22 @@ enum NetworkError: Error {
   case invalidURL
 }
 
-struct SideDishRepositoryService: RepositoryServiceable {
+struct SideDishRepositoryService: RepositoryServiceType {
   
   typealias Output = SideDishes
   
-  let sessionManager: SessionManagable
+  let sessionManager: SessionManagerType
 }
 
-struct SideDishDetailRepositoryService: RepositoryServiceable {
-  
+struct SideDishDetailRepositoryService: RepositoryServiceType {
+
   typealias Output = SideDishDetailData
-  
-  let sessionManager: SessionManagable
+
+  let sessionManager: SessionManagerType
 }
 
-extension RepositoryServiceable where Output: Decodable {
-  
+extension RepositoryServiceType where Output: Decodable {
+
   func fetch(endpoint: Endpoint.Path) -> Observable<Output> {
     let url = Endpoint(path: endpoint).url
     let request = URLRequest(url: url)
