@@ -10,34 +10,24 @@ import RxSwift
 
 protocol RepositoryServiceType {
   
-  associatedtype Output
-  
   var sessionManager: SessionManagerType { get }
   
-  func fetch(endpoint: Endpoint.Path) -> Observable<Output>
-}
-
-enum NetworkError: Error {
-  case invalidURL
+  func fetch<T: Decodable>(endpoint: Endpoint.Path, decodingType: T.Type) -> Observable<T>
 }
 
 struct SideDishRepositoryService: RepositoryServiceType {
-  
-  typealias Output = SideDishes
   
   let sessionManager: SessionManagerType
 }
 
 struct SideDishDetailRepositoryService: RepositoryServiceType {
 
-  typealias Output = SideDishDetailData
-
   let sessionManager: SessionManagerType
 }
 
-extension RepositoryServiceType where Output: Decodable {
+extension RepositoryServiceType {
 
-  func fetch(endpoint: Endpoint.Path) -> Observable<Output> {
+  func fetch<T: Decodable>(endpoint: Endpoint.Path, decodingType: T.Type) -> Observable<T> {
     let url = Endpoint(path: endpoint).url
     let request = URLRequest(url: url)
     return
@@ -45,7 +35,7 @@ extension RepositoryServiceType where Output: Decodable {
       .compactMap { data in
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        return try? decoder.decode(Output.self, from: data)
+        return try? decoder.decode(T.self, from: data)
       }
   }
 }

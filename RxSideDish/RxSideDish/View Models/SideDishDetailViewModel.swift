@@ -11,7 +11,7 @@ import RxCocoa
 
 class SideDishDetailViewModel {
   
-  private let repositoryService: SideDishDetailRepositoryService
+  private let repositoryService: RepositoryServiceType
   
   private let disposeBag = DisposeBag()
   
@@ -30,7 +30,7 @@ class SideDishDetailViewModel {
   }
   
   private func load(_ id: String) {
-    repositoryService.fetch(endpoint: .detail(id))
+    repositoryService.fetch(endpoint: .detail(id), decodingType: SideDishDetailData.self)
       .map { $0.data }
       .subscribe(onNext: {
         self.sideDishDetail.accept($0)

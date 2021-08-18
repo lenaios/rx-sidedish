@@ -9,9 +9,14 @@ import Foundation
 import RxSwift
 import UIKit.UITableView
 
+protocol ViewModelType {
+  var repositoryService: RepositoryServiceType { get }
+  func load()
+}
+
 final class SideDishViewModel: NSObject {
   
-  private let repositoryService: SideDishRepositoryService
+  private let repositoryService: RepositoryServiceType
   
   private var disposeBag = DisposeBag()
   
@@ -20,7 +25,7 @@ final class SideDishViewModel: NSObject {
   var sectionUpdated = PublishSubject<IndexSet>()
   
   init(
-    repositoryService: SideDishRepositoryService = .init(sessionManager: SessionManager.shared)) {
+    repositoryService: RepositoryServiceType = SideDishRepositoryService(sessionManager: SessionManager.shared)) {
     self.repositoryService = repositoryService
     var sections: [SectionModel] = []
     Category.allCases.forEach { category in
@@ -32,7 +37,7 @@ final class SideDishViewModel: NSObject {
   func load() {
     let endpoints: [Endpoint.Path] = [.main, .soup, .side]
     endpoints.enumerated().forEach { (index, path) in
-      repositoryService.fetch(endpoint: path)
+      repositoryService.fetch(endpoint: path, decodingType: SideDishes.self)
         .subscribe(onNext: { [weak self] data in
           guard let self = self else { return }
           let items = data.body
