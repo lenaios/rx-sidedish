@@ -14,9 +14,9 @@ protocol ViewModelType {
   func load()
 }
 
-final class SideDishViewModel: NSObject {
+final class SideDishViewModel: NSObject, ViewModelType {
   
-  private let repositoryService: RepositoryServiceType
+  let repositoryService: RepositoryServiceType
   
   private var disposeBag = DisposeBag()
   

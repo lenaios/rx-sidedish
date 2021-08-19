@@ -24,7 +24,7 @@ class RepositoryServiceStub: RepositoryServiceType {
   var sessionManager: SessionManagerType
   var didFetch = false
   
-  func fetch<T>(endpoint: Endpoint.Path, decodingType: T.Type) -> Observable<T> where T : Decodable {
+  func fetch<T: Decodable>(endpoint: Endpoint.Path, decodingType: T.Type) -> Observable<T> {
     didFetch = true
     return Observable.just(Seeds.sideDishes as! T)
   }

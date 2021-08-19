@@ -78,6 +78,7 @@ class SideDishDetailView: UIView {
     let label = UILabel()
     label.font = .systemFont(ofSize: 14)
     label.textAlignment = .center
+    label.accessibilityIdentifier = "label.quantity"
     return label
   }()
   
@@ -85,6 +86,7 @@ class SideDishDetailView: UIView {
     let button = UIButton()
     button.setImage(UIImage(systemName: "plus"), for: .normal)
     button.tintColor = .systemIndigo
+    button.accessibilityIdentifier = "button.plus"
     return button
   }()
   
