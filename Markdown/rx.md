@@ -13,8 +13,8 @@ OOP, FP(Functional Programming)과 같이 하나의 패러다임이다.
 
 이는 비동기 처리와 관련이 높은데 예를 들면, 서버에 API로 데이터를 요청하고 응답받은 데이터에 따라 UI를 업데이트 해주어야 할 때, 우리는 일반적으로 비동기로 처리한다.
 
-- 클로저를 사용해서 콜백함수로 구현하기도 하고
-- didSet과 같은 property observer를 사용하기도 하고
+- 클로저를 사용해서 콜백함수로 구현하거나,
+- didSet과 같은 property observer를 사용하거나,
 - NotificationCenter를 활용할 수도 있다.
 
 외부 라이브러리 없이도 위와 같은 내부 API를 사용해서 비동기 프로그래밍을 할 수 있다.
@@ -58,19 +58,16 @@ bag에 담아두면 class가 deinit 될 때 구독도 함께 deallocated 된다.
 
 ### Subject
 
-- PublishSubject
+**PublishSubject**
 
-Observable이면서 Observer, next event 방출
+- Observable이면서 Observer, next event 방출
+- PublishSubject는 현재 나를 subscribe하는 subscriber들에게만 이벤트를 emit 한다.
+- subscriber는 subscribe한 시점 이후에 발생되는 이벤트만 전달받는다.
 
-PublishSubject는 현재 나를 subscribe하는 subscriber들에게만 이벤트를 emit 한다.
+**BehaviorSubject**
 
-subscriber는 subscribe한 시점 이후에 발생되는 이벤트만 전달받는다.
-
-- BehaviorSubject
-
-PublishSubject와 유사하지만, **차이점은 반드시 초기값을 갖고 생성**된다.
-
-따라서 구독자에게 구독 시점의 가장 최근 이벤트를 전달한다.
+- PublishSubject와 유사하지만, **차이점은 반드시 초기값을 갖고 생성**된다.
+- 따라서 구독자에게 구독 시점의 가장 최근 이벤트를 전달한다.
 
 ### Relay
 
@@ -92,20 +89,22 @@ RxCocoa에서 제공하는, subscribe와 유사하지만, error 이벤트를 받
 
 Binder는 데이터를 받아서 처리하기만 한다. = Data Consumer
 
+```swift
+UILabel.rx.text: Binder<String?>
+```
+
 ### Traits: Control Event, Control Property, Driver
 
 traits는 UI 처리에 특화된 Observable, 데이터 생산자에 해당하며 데이터 소비자인 Binder와 반대 개념이다.
 
 MainScheduler에서 실행된다.
 
-Control Property는 Observable 이면서 Observer. ex) UITextField.rx.text
+**Control Property**
+- Control Property는 Observable 이면서 Observer. ex) UITextField.rx.text
+- 시퀀스를 공유한다. = Observable.share.replay(1): 가장 최근 value 전달
 
-시퀀스를 공유한다. = Observable.share.replay(1): 가장 최근 value 전달
-
-Driver는 직접 생성하지 않는다. asDriver() 메서드로 Observable을 변환해야 한다.
-
-Driver는 시퀀스를 공유한다. = Observable.share()
-
-모든 작업이 메인 스케줄러에서 처리된다. 에러를 전달하지 않는다.
-
-bind(to:) 대신 drive()로 바인딩해야한다.
+**Driver**
+- Driver는 직접 생성하지 않는다. asDriver() 메서드로 Observable을 변환해야 한다.
+- Driver는 시퀀스를 공유한다. = Observable.share()
+- 모든 작업이 메인 스케줄러에서 처리된다. 에러를 전달하지 않는다.
+- bind(to:) 대신 drive()로 바인딩해야한다.
