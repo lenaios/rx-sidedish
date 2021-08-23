@@ -123,7 +123,7 @@ class SideDishViewModelTests: XCTestCase {
 }
 ```
 
-- [TDD](https://github.com/lenaios/cs-knowledge-database/tree/main/TDD)
+- [TDD](https://github.com/lenaios/rx-sidedish/blob/main/Markdown/TDD.md)
 
 ## trouble shooting
 >main.sync는 사용하면 안될까?
@@ -143,8 +143,8 @@ deadlock은 2개 이상의 작업이 서로의 작업이 끝나기만을 기다�
 
 ## 학습거리
 
-- [MVVM Pattern](https://www.notion.so/MVVM-Pattern-31d2576484344424b0744bd8e4ccb6ba)
-- [RxSwift, RxCocoa](https://www.notion.so/RxSwift-eb72bad904304f9a918a78b30437a0e6)
+- [MVVM Pattern](https://github.com/lenaios/rx-sidedish/blob/main/Markdown/MVVM.md)
+- [RxSwift, RxCocoa](https://github.com/lenaios/rx-sidedish/blob/main/Markdown/rx.md)
 - Stack View
 - Content Hugging Priority, Content Compression Resistance Priority
 
