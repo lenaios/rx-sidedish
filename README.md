@@ -125,20 +125,38 @@ class SideDishViewModelTests: XCTestCase {
 
 - [TDD](https://github.com/lenaios/rx-sidedish/blob/main/Markdown/TDD.md)
 
-## trouble shooting
->main.sync는 사용하면 안될까?
+## Trouble shooting
 
-sync : 현재 queue의 작업을 멈추고(wait) sync 블록을 수행한다.
+- 문제 : 네트워크로부터 받아온 데이터로 테이블뷰를 업데이트 할 때 비동기(async)로 처리하면 crash 발생
 
-(dispatch) main queue는 main thread에서 task를 처리하는 앱의 전역에서 접근 가능한 큐이며, serial queue 이다.
+    ```swift
+    viewModel.sectionUpdated
+      .subscribe(onNext: { [weak self] section in
+        guard let self = self else { return }
+        DispatchQueue.main.async {
+          self.tableView.reloadSections(section, with: .automatic)
+        }
+      })
+      .disposed(by: disposeBag)
 
-따라서 serial queue인 main queue에서 main.sync를 호출하면 앱이 deadlock에 빠져 죽게 된다.
+    // fatal error!!
+    Thread 1: "Invalid update: invalid number of rows in section 2. 
+    The number of rows contained in an existing section after the update (8) 
+    must be equal to the number of rows contained in that section 
+    before the update (0), plus or minus the number of rows inserted 
+    or deleted from that section (0 inserted, 0 deleted) and plus or minus 
+    the number of rows moved into or out of that section (0 moved in, 0 moved out)."
+    ```
 
-main queue에서 main.sync 할 수는 없지만, main queue가 아닌 경우에는 main.sync를 사용해야 하는 상황이 존재할 수 있다.
+- 원인 : table view를 업데이트 하는 동안 data source(section, row)가 변경(update)되어서 오류가 발생한다.
+- 해결 : main.sync로 처리하도록 수정해서 해결
+- 고찰  
+    `.sync` 메서드는 현재 queue의 작업을 멈추고(wait) 클로저를 실행한다.  
+    (dispatch) main queue는 serial queue 이므로 한 번에 하나의 closure를 실행한다.  
+    따라서, main serial queue에서 main.sync를 사용하면 앱이 서로의 작업이 끝나기만을 기다리는 deadlock에 걸리게 된다.  
+    main queue가 아닌 경우에는 main.sync를 사용해야 하는 상황이 존재할 수 있다.  
+    위와 같이 비동기로 받아온 데이터를 테이블뷰에 업데이트 할 때, 현재 작업(main이 아닌 URLSession이 만든 thread)을 block 하도록 해야 정상적으로 동작한다.
 
-위와 같이 비동기로 테이블뷰의 section을 업데이트해야 할 때 main.async로 수행하면 테이블뷰의 data source가 immutable함을 보장할 수 없기 때문에 crash가 발생한다. → main.sync로 문제를 해결할 수 있다.
-
-deadlock은 2개 이상의 작업이 서로의 작업이 끝나기만을 기다리며 영원히 완료되지 못하는 상태를 의미한다.
 - [관련 학습 내용](https://velog.io/@lena_/Concurrency-Programming#sync-async)
 
 ## 학습거리
@@ -148,5 +166,5 @@ deadlock은 2개 이상의 작업이 서로의 작업이 끝나기만을 기다�
 - Stack View
 - Content Hugging Priority, Content Compression Resistance Priority
 
-## screenshots
+## Screenshots
 <img src="https://user-images.githubusercontent.com/75113784/130393456-acdf5139-4cb8-4048-94e9-86153a73fbb3.png" width="40%"> <img src="https://user-images.githubusercontent.com/75113784/130393443-6c28c196-305d-43e1-9aa9-a80001c712ff.png" width="40%">
