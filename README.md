@@ -162,7 +162,7 @@ class SideDishViewModelTests: XCTestCase {
 ## 학습거리
 
 - [MVVM Pattern](https://github.com/lenaios/rx-sidedish/blob/main/Markdown/MVVM.md)
-- [RxSwift, RxCocoa](https://github.com/lenaios/rx-sidedish/blob/main/Markdown/rx.md)
+- [RxSwift, RxCocoa](https://github.com/lenaios/rx-sidedish/blob/main/Markdown/Rx.md)
 - Stack View
 - Content Hugging Priority, Content Compression Resistance Priority
 
