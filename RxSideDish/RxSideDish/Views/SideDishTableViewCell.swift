@@ -44,6 +44,7 @@ class SideDishTableViewCell: UITableViewCell {
   
   override func prepareForReuse() {
     super.prepareForReuse()
+    thumbnail.image = nil
     normal.text = ""
     badgeStackView.arrangedSubviews.forEach { view in
       view.removeFromSuperview()

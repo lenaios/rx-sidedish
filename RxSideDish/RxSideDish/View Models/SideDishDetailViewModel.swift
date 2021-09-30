@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class SideDishDetailViewModel {
+final class SideDishDetailViewModel {
   
   private let repositoryService: RepositoryServiceType
   
