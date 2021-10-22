@@ -8,6 +8,11 @@
 ## App Architecture
 ![image](https://user-images.githubusercontent.com/75113784/131440085-11136c74-2f0a-4a65-8ed2-dab8a7940f52.png)
 
+## 작업 내용
+- [네트워크 layer 모델링](https://github.com/lenaios/rx-sidedish/issues/1)
+- [뷰와 뷰모델 바인딩](https://github.com/lenaios/rx-sidedish/issues/2)
+- [cell 안에 표시할 이미지 가져오기](https://github.com/lenaios/rx-sidedish/issues/4)
+
 ## 주로 고민한 내용
 반찬의 카테고리(main, soup, side)에 따라 각각 API를 호출하고, 카테고리 순서를 보장하면서 해당 section을 reload 하기
 
