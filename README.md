@@ -1,16 +1,12 @@
 # rx-sidedish
 
 ## 요약
+- 반찬 리스트와 상세 정보를 보여주는 iOS App
+- 목표 : Reactive Programming를 기반으로 한 RxSwift, RxCocoa 라이브러리를 학습하고 적용해보기
+- 기간 : 2021.08
 
-- 반찬 리스트와 상세 정보를 보여주는 App
-
-## 목표
-
-- Reactive Programming를 기반으로 한 RxSwift, RxCocoa 라이브러리를 학습하고 적용해보기
-
-## 기간
-
-- 2021.08
+## App Architecture
+![image](https://user-images.githubusercontent.com/75113784/131440085-11136c74-2f0a-4a65-8ed2-dab8a7940f52.png)
 
 ## 주로 고민한 내용
 반찬의 카테고리(main, soup, side)에 따라 각각 API를 호출하고, 카테고리 순서를 보장하면서 해당 section을 reload 하기
